@@ -1,0 +1,83 @@
+﻿@model List<Order>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div class="d-flex justify-content-between">
+    <h2 class="text-success">
+        Orders
+    </h2>
+   <table>
+        
+        <tr><td><p style="font-size:15px">@Html.ActionLink("Log Out","Login")</p></td></tr>
+      <tr><td><p style="font-size:15px">@Html.ActionLink("Add Food Item","AddFoodItem")</p></td></tr>
+      
+        
+    </table>
+</div> 
+<br/>
+@*@using(@Html.BeginForm("CompletedOrder","Restaurant",FormMethod.Post))
+{*@
+ <table  class="table table-striped">
+        <tr>
+                <th>Order Id</th>
+                <th>UserName</th>
+                <th>Food Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>      </th>
+        </tr>
+        @foreach(var obj in Model)
+        {
+        
+            <tr>
+                <td>@obj.OrderId</td>
+              
+                <td>@obj.CustomerName</td>
+              
+                <td>@obj.FoodItem</td>
+             
+                <td>@obj.Quantity</td>
+              
+                <td>@obj.Price</td>
+                
+                        
+                <td><a asp-controller="Restaurant" asp-action="CompletedOrder" asp-route-id = "@obj.OrderId" class="btn btn-primary">Deliver</a></td>
+            </tr>
+        }   
+ </table>
+ 
+
+
+ @* @foreach(var obj in Model)
+        {
+        
+            <tr>
+                <td>@obj.OrderId</td>
+                 <div class="d-none">
+                             <input name="OrderId" value="@obj.OrderId"/>
+                 </div>
+                <td>@obj.CustomerName</td>
+                 <div class="d-none">
+                             <input name="CustomerName" value="@obj.CustomerName"/>
+                         </div>
+                <td>@obj.FoodItem</td>
+                 <div class="d-none">
+                             <input name="FoodItem" value="@obj.FoodItem"/>
+                         </div>
+                <td>@obj.Quantity</td>
+                 <div class="d-none">
+                             <input name="Quantity" value="@obj.Quantity"/>
+                         </div>
+                <td>@obj.Price</td>
+                 <div class="d-none">
+                             <input name="Price" value="@obj.Price"/>
+                         </div>
+                        
+                <td><a class="btn btn-primary" asp-controller="Restaurant" asp-action="CompletedOrder">Deliver</a></td>
+            </tr>
+        }*@

@@ -1,0 +1,50 @@
+﻿@model FoodItem
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+
+<form method="post">
+    <div class="border p-3 mt-4 container  align-self-center " style="width:40%">
+
+        <div class="p-3 mt-4 container align-self-center">
+          
+            <h2>Add Food Item</h2>
+            <br />
+
+            <div class="mb-3">
+               <input asp-for="FoodItemName" placeholder="FoodItem Name" class="form-control" style="width:100%"/>
+            </div>
+
+             <div class="mb-3">
+                <input asp-for="FoodItemImage" placeholder="FoodItem Image" class="form-control" style="width:100%"/>
+            </div>
+
+             <div class="mb-3">
+                <input asp-for="Price" placeholder="Price" class="form-control" style="width:100%"/>
+            </div>
+
+            <div class="mb-3">
+                <input asp-for="ImageFile" accept="image/*" class="form-control" style="width:100%"/>
+            </div>
+
+            <button type="submit" class="btn btn-outline-primary" style="width:100% ">Submit</button>
+
+        </div>
+
+      
+        
+    </div>
+</form>
+
+@section scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
