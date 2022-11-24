@@ -25,17 +25,24 @@
  <table  class="table table-striped">
         <tr>
                 <th>Order Id</th>
+                <th>InVoiceNo</th>
                 <th>UserName</th>
                 <th>Food Item</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                <th>Order Time</th>
                 <th>      </th>
         </tr>
+    @{
+        int i = 1;
+    }
         @foreach(var obj in Model)
         {
         
             <tr>
-                <td>@obj.OrderId</td>
+                <td>@i</td>
+
+                <td>@obj.InVoiceNo</td>
               
                 <td>@obj.CustomerName</td>
               
@@ -45,39 +52,15 @@
               
                 <td>@obj.Price</td>
                 
+                <td>@obj.OrderTime</td>
+                
                         
-                <td><a asp-controller="Restaurant" asp-action="CompletedOrder" asp-route-id = "@obj.OrderId" class="btn btn-primary">Deliver</a></td>
+                <td><a asp-controller="Restaurant" asp-action="CompletedOrder" asp-route-id = "@obj.OrderNo" class="btn btn-primary">Deliver</a></td>
             </tr>
+            i++;
         }   
  </table>
  
 
 
- @* @foreach(var obj in Model)
-        {
-        
-            <tr>
-                <td>@obj.OrderId</td>
-                 <div class="d-none">
-                             <input name="OrderId" value="@obj.OrderId"/>
-                 </div>
-                <td>@obj.CustomerName</td>
-                 <div class="d-none">
-                             <input name="CustomerName" value="@obj.CustomerName"/>
-                         </div>
-                <td>@obj.FoodItem</td>
-                 <div class="d-none">
-                             <input name="FoodItem" value="@obj.FoodItem"/>
-                         </div>
-                <td>@obj.Quantity</td>
-                 <div class="d-none">
-                             <input name="Quantity" value="@obj.Quantity"/>
-                         </div>
-                <td>@obj.Price</td>
-                 <div class="d-none">
-                             <input name="Price" value="@obj.Price"/>
-                         </div>
-                        
-                <td><a class="btn btn-primary" asp-controller="Restaurant" asp-action="CompletedOrder">Deliver</a></td>
-            </tr>
-        }*@
+ 

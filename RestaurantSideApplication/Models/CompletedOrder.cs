@@ -2,7 +2,7 @@
 {
     public class CompletedOrder
     {
-        public int OrderId { get; set; }
+        public int InVoiceNo { get; set; }
 
         public string CustomerName { get; set; }
 
@@ -12,13 +12,16 @@
 
         public int Price { get; set; }
 
-        public CompletedOrder(int orderId, string customerName, string foodItem, int quantity, int price)
+     
+
+        public CompletedOrder(int inVoiceNo, string customerName, string foodItem, int quantity, int price)
         {
-            OrderId = orderId;
+            InVoiceNo = inVoiceNo;
             CustomerName = customerName;
             FoodItem = foodItem;
             Quantity = quantity;
             Price = price;
+        
         }
     }
 }

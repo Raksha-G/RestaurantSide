@@ -7,11 +7,13 @@ namespace RestaurantSideApplication.Controllers
     public class RestaurantController : Controller
     {
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly ILogger<RestaurantController> _logger;
 
         List<LoginDetails> Users = new List<LoginDetails>();
-        public RestaurantController(IWebHostEnvironment hostEnvironment)
+        public RestaurantController(IWebHostEnvironment hostEnvironment, ILogger<RestaurantController> logger)
         {
             this._hostEnvironment = hostEnvironment;
+            _logger = logger;
 
 
             SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=True;");
@@ -43,12 +45,14 @@ namespace RestaurantSideApplication.Controllers
             var Restaurant = Users.Find(e => e.RestaurantName == signup.RestaurantName);
             if (user != null)
             {
+                _logger.LogInformation("User:{0} already Exist, unable to create new Account", signup.UserName);
                 ViewBag.UserName = "UserName already Exist";
                 return View();
             }
             if (Restaurant != null)
             {
                 ViewBag.UserName = "Restaurant Name already Exist";
+                _logger.LogInformation("Restaurant:{0} already Exist, unable to create new Account", signup.RestaurantName);
                 return View();
             }
             SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ; Initial Catalog = FoodDeliveryApplication; Integrated Security = True;");
@@ -57,6 +61,7 @@ namespace RestaurantSideApplication.Controllers
             conn.Open();
             cmd.ExecuteNonQuery();
             conn.Close();
+            _logger.LogInformation(String.Format("A new Account Created with UserName {0} and RestaurantName {1}", signup.UserName, signup.RestaurantName));
 
             SqlCommand cmd1 = new SqlCommand(String.Format("insert into Restaurants values('{0}','{1}')", signup.RestaurantName, signup.RestaurantImage), conn);
             conn.Open();
@@ -67,8 +72,16 @@ namespace RestaurantSideApplication.Controllers
             return View("Login");
         }
 
+
+        public IActionResult Logout()
+        {
+            _logger.LogInformation("{0} logged out from the Restaurant {1}", HttpContext.Session.GetString("userName"), HttpContext.Session.GetString("RestaurantName"));
+            return View("Login");
+        }
+
         public IActionResult Login()
         {
+            _logger.LogInformation("Login Triggered");
             return View();
         }
 
@@ -80,11 +93,13 @@ namespace RestaurantSideApplication.Controllers
             if (user == null)
             {
                 ViewBag.NotExist = "NotExist";
+                _logger.LogInformation("User does not Exist");
                 return View();
             }
             if (restuarant == null)
             {
                 ViewBag.ResNotExist = "NotExist";
+                _logger.LogInformation("Restaurant does not Exist");
                 return View();
             }
             foreach (var i in Users)
@@ -92,10 +107,13 @@ namespace RestaurantSideApplication.Controllers
                 if (i.UserName == login.UserName && i.Password == login.Password)
                 {
                     HttpContext.Session.SetString("RestaurantName", login.RestaurantName);
-                 
+                    HttpContext.Session.SetString("userName", login.UserName);
+                    _logger.LogInformation(String.Format("User {0} logged into the Restaurant {1}", login.UserName, login.RestaurantName));
+
                     return RedirectToAction("DisplayOrders");
                 }
             }
+            _logger.LogError("Entered Incorrect Password");
             ViewBag.IncorrectPassword = "Incorrect Password";
             return View();
         }
@@ -105,63 +123,68 @@ namespace RestaurantSideApplication.Controllers
         {
             if (HttpContext.Session.GetString("RestaurantName") == null)
             {
+                _logger.LogInformation("{0} logged out from theRestaurant {1}", HttpContext.Session.GetString("UserName"), HttpContext.Session.GetString("RestaurantName"));
                 return RedirectToAction("Login");
             }
+
+
             SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
-            SqlCommand cmd = new SqlCommand(String.Format("select CO.OrderId, CO.UserName, CO.FoodItem, CO.Price , CO.Quantity from ConfirmOrder CO inner join Restaurants R on R.Restaurant_Id = CO.RestaurantId  where R.Restaurant_Name = '{0}'", HttpContext.Session.GetString("RestaurantName")), conn);
+            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}'", HttpContext.Session.GetString("RestaurantName")), conn);
             conn.Open();
             SqlDataReader sr = cmd.ExecuteReader();
-
             List<Order> orderDetails = new List<Order>();
-            while(sr.Read())
+            while (sr.Read())
             {
-                Order order = new Order((int)sr["OrderId"],sr["UserName"].ToString(), sr["FoodItem"].ToString(), (int)sr["Quantity"], (int)sr["Price"]);
+                Order order = new Order((int)sr["InVoiceNo"], sr["UserName"].ToString(), sr["FoodItem"].ToString(), (int)sr["Quantity"], (int)sr["Price"], (DateTime)sr["OrderTime"], (int)sr["OrderNo"]);
                 orderDetails.Add(order);
             }
+
+
+
 
             return View("DisplayOrders",orderDetails);
         }
 
-       
-        //[HttpPost]
+    
         public IActionResult CompletedOrder(int Id)
         {
             if (HttpContext.Session.GetString("RestaurantName") == null)
             {
+                _logger.LogInformation("{0} logged out, Owner of Restaurant {1}", HttpContext.Session.GetString("UserName"), HttpContext.Session.GetString("RestaurantName"));
                 return RedirectToAction("Login");
             }
+
             SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
-            //SqlCommand cmd = new SqlCommand(String.Format("select CO.OrderId, CO.UserName, CO.FoodItem, CO.Price, CO.Quantity from ConfirmOrder CO inner Join Restaurants R on CO.RestaurantId = R.Restaurant_Id where R.Restaurant_Name = '{0}'", HttpContext.Session.GetString("RestaurantName")), conn);
-            SqlCommand cmd = new SqlCommand(String.Format("select OrderId,UserName,FoodItem,Price,Quantity from ConfirmOrder where OrderId = '{0}'",Id), conn);
+            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail where OrderNo = '{0}'", Id), conn);
             conn.Open();
             SqlDataReader sr = cmd.ExecuteReader();
 
             List<CompletedOrder> completedOrders = new List<CompletedOrder>();
-            while(sr.Read())
+            while (sr.Read())
             {
-                CompletedOrder compOrder = new CompletedOrder((int)sr["OrderId"], sr["UserName"].ToString(), sr["FoodItem"].ToString(), (int)sr["Quantity"], (int)sr["Price"]);
+                CompletedOrder compOrder = new CompletedOrder((int)sr["InVoiceNo"], sr["UserName"].ToString(), sr["FoodItem"].ToString(), (int)sr["Quantity"], (int)sr["Price"]);
                 completedOrders.Add(compOrder);
             }
             conn.Close();
 
-           foreach(var obj in completedOrders)
+            foreach (var obj in completedOrders)
             {
-                SqlCommand cmd1 = new SqlCommand(String.Format("insert into CompletedOrders values('{0}','{1}','{2}','{3}','{4}')",obj.OrderId,obj.CustomerName,obj.FoodItem,obj.Price,obj.Quantity), conn);
+                SqlCommand cmd1 = new SqlCommand(String.Format("insert into CompletedOrder values('{0}','{1}','{2}','{3}','{4}','{5}')", obj.InVoiceNo, obj.CustomerName, obj.FoodItem, obj.Price, obj.Quantity,DateTime.Now), conn);
                 conn.Open();
+                _logger.LogDebug("Order Delivered to user {0}, Item {1} with Invoice No {2}", obj.CustomerName, obj.FoodItem, obj.InVoiceNo);
                 cmd1.ExecuteNonQuery();
                 conn.Close();
 
-                SqlCommand cmd2 = new SqlCommand(String.Format("delete from ConfirmOrder where OrderId = '{0}'", obj.OrderId), conn);
+                SqlCommand cmd2 = new SqlCommand(String.Format("delete from PlacedOrderDetail where OrderNo = '{0}'", Id), conn);
                 conn.Open();
                 cmd2.ExecuteNonQuery();
                 conn.Close();
-
-
-                //return View("DisplayOrders");
-
             }
 
-            return RedirectToAction("DisplayOrders");
+
+
+
+         return RedirectToAction("DisplayOrders");
 
             
         }

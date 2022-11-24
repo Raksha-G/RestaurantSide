@@ -7,6 +7,8 @@ namespace RestaurantSideApplication.Models
         [Key]
         public int OrderId { get; set; }
 
+        public int InVoiceNo { get; set; }
+
         public string CustomerName { get; set; }
 
         public string FoodItem { get; set; }
@@ -15,18 +17,26 @@ namespace RestaurantSideApplication.Models
 
         public int Price { get; set; }
 
+        public DateTime OrderTime  { get; set; }
+
+        public int OrderNo { get; set; }
+
 
         public Order()
         {
 
         }
-        public Order(int orderId, string customerName, string foodItem, int quantity, int price)
+      
+        public Order(int inVoiceNo, string customerName, string foodItem, int quantity, int price, DateTime orderTime, int orderNo)
         {
-            OrderId = orderId;
+
+            InVoiceNo = inVoiceNo;
             CustomerName = customerName;
             FoodItem = foodItem;
             Quantity = quantity;
             Price = price;
+            OrderTime = orderTime;
+            OrderNo = orderNo;
         }
     }
 }
