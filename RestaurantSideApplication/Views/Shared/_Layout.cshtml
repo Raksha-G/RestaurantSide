@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor _httpContextAccessor;
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,8 +10,18 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RestaurantSideApplication.styles.css" asp-append-version="true" />
+ 
 </head>
 <body>
+       
+   
+     
+
+            
+
+
+
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -20,16 +33,80 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Login">Log in</a>
+                            @if(String.IsNullOrEmpty(_httpContextAccessor.HttpContext.Session.GetString("RestaurantName")))
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Login">Log in</a>
+                            }
                         </li>
+                            
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="CreateAccount">Sign up</a>
+                            @if(String.IsNullOrEmpty(_httpContextAccessor.HttpContext.Session.GetString("RestaurantName")))
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="CreateAccount">Sign up</a>
+                                
+                            }
+                        </li>
+                        @* <li class="nav-item">
+                            @if(!String.IsNullOrEmpty(_httpContextAccessor.HttpContext.Session.GetString("RestaurantName")))
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Logout">Logout</a>
+                                
+                            }
+                        </li>*@
+                        <li>
+                             @if(!String.IsNullOrEmpty(_httpContextAccessor.HttpContext.Session.GetString("RestaurantName")))
+                        {
+                             <link rel="stylesheet" href="~/css/style.css">
+                                <div class="action" style="position:absolute">
+                                        <div class="profile" onclick="menuToggle();">
+                                           @{string str= _httpContextAccessor.HttpContext.Session.GetString("RestaurantName");
+                                            }
+                                            <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+                                            <ul>
+                                                <li>
+                                                     <span class="material-icons icons-size">person</span>
+                                                     <p>@str</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="menu">
+           
+                                            <ul>
+                                                <li>
+                                                    <span class="material-icons icons-size"></span>
+                                                    <a asp-controller="Restaurant" asp-action="AddFoodItem">Add Food Item</a>
+                                                </li>
+                                                 <li>
+                                                    <span class="material-icons icons-size"></span>
+                                                    <a asp-area="" asp-controller="Restaurant" asp-action="Logout">Logout</a>
+                                                </li>
+                
+                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        function menuToggle(){
+                                            const toggleMenu = document.querySelector('.menu');
+                                            toggleMenu.classList.toggle('active')
+                                        }
+                                    </script>
+
+                        }
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+
+
+
+
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -45,5 +122,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

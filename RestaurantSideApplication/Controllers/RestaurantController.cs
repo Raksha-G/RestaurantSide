@@ -8,12 +8,14 @@ namespace RestaurantSideApplication.Controllers
     {
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly ILogger<RestaurantController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         List<LoginDetails> Users = new List<LoginDetails>();
-        public RestaurantController(IWebHostEnvironment hostEnvironment, ILogger<RestaurantController> logger)
+        public RestaurantController(IWebHostEnvironment hostEnvironment, ILogger<RestaurantController> logger, IHttpContextAccessor httpContextAccessor)
         {
             this._hostEnvironment = hostEnvironment;
             _logger = logger;
+            this._httpContextAccessor = httpContextAccessor;
 
 
             SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=True;");
@@ -75,8 +77,9 @@ namespace RestaurantSideApplication.Controllers
 
         public IActionResult Logout()
         {
-            _logger.LogInformation("{0} logged out from the Restaurant {1}", HttpContext.Session.GetString("userName"), HttpContext.Session.GetString("RestaurantName"));
-            return View("Login");
+            _logger.LogInformation("{0} logged out from the Restaurant {1}", _httpContextAccessor.HttpContext.Session.GetString("UserName"), _httpContextAccessor.HttpContext.Session.GetString("RestaurantName"));
+            _httpContextAccessor.HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
 
         public IActionResult Login()
@@ -106,8 +109,8 @@ namespace RestaurantSideApplication.Controllers
             {
                 if (i.UserName == login.UserName && i.Password == login.Password)
                 {
-                    HttpContext.Session.SetString("RestaurantName", login.RestaurantName);
-                    HttpContext.Session.SetString("userName", login.UserName);
+                    _httpContextAccessor.HttpContext.Session.SetString("RestaurantName", login.RestaurantName);
+                    _httpContextAccessor.HttpContext.Session.SetString("UserName", login.UserName);
                     _logger.LogInformation(String.Format("User {0} logged into the Restaurant {1}", login.UserName, login.RestaurantName));
 
                     return RedirectToAction("DisplayOrders");
@@ -121,15 +124,15 @@ namespace RestaurantSideApplication.Controllers
 
         public IActionResult DisplayOrders()
         {
-            if (HttpContext.Session.GetString("RestaurantName") == null)
+            if (_httpContextAccessor.HttpContext.Session.GetString("RestaurantName") == null)
             {
-                _logger.LogInformation("{0} logged out from theRestaurant {1}", HttpContext.Session.GetString("UserName"), HttpContext.Session.GetString("RestaurantName"));
+                _logger.LogInformation("{0} logged out from the Restaurant {1}", _httpContextAccessor.HttpContext.Session.GetString("UserName"), _httpContextAccessor.HttpContext.Session.GetString("RestaurantName"));
                 return RedirectToAction("Login");
             }
 
 
             SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
-            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}'", HttpContext.Session.GetString("RestaurantName")), conn);
+            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}'", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName")), conn);
             conn.Open();
             SqlDataReader sr = cmd.ExecuteReader();
             List<Order> orderDetails = new List<Order>();
@@ -148,9 +151,9 @@ namespace RestaurantSideApplication.Controllers
     
         public IActionResult CompletedOrder(int Id)
         {
-            if (HttpContext.Session.GetString("RestaurantName") == null)
+            if (_httpContextAccessor.HttpContext.Session.GetString("RestaurantName") == null)
             {
-                _logger.LogInformation("{0} logged out, Owner of Restaurant {1}", HttpContext.Session.GetString("UserName"), HttpContext.Session.GetString("RestaurantName"));
+                _logger.LogInformation("{0} logged out, Owner of Restaurant {1}", _httpContextAccessor.HttpContext.Session.GetString("UserName"), _httpContextAccessor.HttpContext.Session.GetString("RestaurantName"));
                 return RedirectToAction("Login");
             }
 
@@ -169,7 +172,7 @@ namespace RestaurantSideApplication.Controllers
 
             foreach (var obj in completedOrders)
             {
-                SqlCommand cmd1 = new SqlCommand(String.Format("insert into CompletedOrder values('{0}','{1}','{2}','{3}','{4}','{5}')", obj.InVoiceNo, obj.CustomerName, obj.FoodItem, obj.Price, obj.Quantity,DateTime.Now), conn);
+                SqlCommand cmd1 = new SqlCommand(String.Format("insert into CompletedOrder values('{0}','{1}','{2}','{3}','{4}','{5}')", obj.InVoiceNo, obj.CustomerName, obj.FoodItem, obj.Quantity, obj.Price,DateTime.Now), conn);
                 conn.Open();
                 _logger.LogDebug("Order Delivered to user {0}, Item {1} with Invoice No {2}", obj.CustomerName, obj.FoodItem, obj.InVoiceNo);
                 cmd1.ExecuteNonQuery();
@@ -225,27 +228,28 @@ namespace RestaurantSideApplication.Controllers
          }*/
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Create([Bind("FoodItemName,FoodItemImage,Price,ImageFile")] FoodItem foodItem)
         {
-            //if (ModelState.IsValid)
-            //{
-                //Save image to wwwroot/image
-                string wwwRootPath = _hostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(foodItem.ImageFile.FileName);
-                string extension = Path.GetExtension(foodItem.ImageFile.FileName);
-                foodItem.FoodItemName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await foodItem.ImageFile.CopyToAsync(fileStream);
-                }
-             
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+            string fileName = Path.GetFileNameWithoutExtension(foodItem.ImageFile.FileName);
+            string extension = Path.GetExtension(foodItem.ImageFile.FileName);
+            foodItem.FoodItemName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                await foodItem.ImageFile.CopyToAsync(fileStream);
+            }
+            //Insert record
+          
+     
 
 
-                SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+
+
+            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
                 int resId;
-                SqlCommand sqlCommand = new SqlCommand(String.Format("select Restaurant_Id from Restaurants where Restaurant_Name='{0}'", HttpContext.Session.GetString("RestaurantName")), conn);
+                SqlCommand sqlCommand = new SqlCommand(String.Format("select Restaurant_Id from Restaurants where Restaurant_Name='{0}'", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName")), conn);
                 conn.Open();
                 SqlDataReader sr = sqlCommand.ExecuteReader();
                 resId = (int)sr["Restaurant_Id"];
@@ -257,11 +261,13 @@ namespace RestaurantSideApplication.Controllers
                 conn.Close();
 
 
-                //return RedirectToAction("Logged");
                 return View("Logged");
-            //}
-           // return View(foodItem);
+
         }
+
+
+
+      
 
     }
 }

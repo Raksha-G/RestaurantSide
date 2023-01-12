@@ -30,5 +30,19 @@ namespace RestaurantSideApplication.Models
             Price = price;
           
         }
+        public FoodItem(string foodItemName, string foodItemImage, int price,IFormFile imageFile)
+        {
+
+            FoodItemName = foodItemName;
+            FoodItemImage = foodItemImage;
+            Price = price;
+            ImageFile = imageFile;
+
+        }
+
+        public FoodItem()
+        {
+
+        }
     }
 }

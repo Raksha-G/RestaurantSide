@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cUC4knPZlR4JxBcinHpK8/12GgRwH43F6Qg9mARvrhM=",
+  "Hash": "sGb+Vsndj1Krdjk3sbMj+tIBo1Bw1Tqq5aFzX0Pyg/k=",
   "Source": "RestaurantSideApplication",
   "BasePath": "_content/RestaurantSideApplication",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\raksha_ganyarpawar\\source\\repos\\RestaurantSideApplication\\RestaurantSideApplication\\wwwroot\\css\\style.css",
+      "SourceId": "RestaurantSideApplication",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\raksha_ganyarpawar\\source\\repos\\RestaurantSideApplication\\RestaurantSideApplication\\wwwroot\\",
+      "BasePath": "_content/RestaurantSideApplication",
+      "RelativePath": "css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
     },
     {
       "Identity": "C:\\Users\\raksha_ganyarpawar\\source\\repos\\RestaurantSideApplication\\RestaurantSideApplication\\wwwroot\\favicon.ico",
