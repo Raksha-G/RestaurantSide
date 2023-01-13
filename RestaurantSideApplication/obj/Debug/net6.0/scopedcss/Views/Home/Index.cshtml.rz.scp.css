@@ -1,0 +1,68 @@
+.bg-container[b-b197b0zg9j] {
+    background-image: url("https://b.zmtcdn.com/mx-onboarding-hero87f77501659a5656cad54d98e72bf0d81627911821.webp");
+    background-size: cover;
+    height: 100vh;
+}
+
+.heading[b-b197b0zg9j] {
+    color: white;
+    width: 150px;
+    font-size: 35px;
+    margin-bottom: 0px;
+}
+
+.para[b-b197b0zg9j] {
+    font-size: 18px;
+    margin-top: 0px;
+    color: white;
+}
+
+.top-container[b-b197b0zg9j] {
+    padding: 20px;
+    padding-left: 120px;
+    padding-right: 120px;
+    padding-bottom: 150px;
+}
+
+.login-button[b-b197b0zg9j] {
+    border: 1px solid white;
+    background-color:;
+    color: white;
+    margin-right: 10px;
+    height: 40px;
+}
+
+.create-button[b-b197b0zg9j] {
+    height: 40px;
+}
+.button-container[b-b197b0zg9j]{
+    width:220px;
+    height:40px;
+}
+
+.register-heading[b-b197b0zg9j] {
+    color: white;
+    font-size: 38px;
+    margin-bottom: 0px;
+}
+
+.register-para[b-b197b0zg9j] {
+    color: white;
+    margin-top: 3px;
+}
+
+.register-button[b-b197b0zg9j] {
+    height: 40px;
+    width: 1000px;
+}
+.register-login-button[b-b197b0zg9j] {
+    border: 1px solid white;
+    background-color:;
+    color: white;
+    margin-right: 10px;
+    height: 40px;
+}
+.register-container[b-b197b0zg9j] {
+    width: 580px;
+    height: 40px;
+}

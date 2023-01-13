@@ -6,10 +6,12 @@
 *@
 @{
 }
+<div class="bg-container">
+
 
 
 <form method="post">
-    <div class="border p-3 mt-4 container  align-self-center " style="width:40%">
+    <div class="border p-3 container  align-self-center " style="width:40%">
 
         <div class="p-3 mt-4 container align-self-center">
             @if(ViewBag.UserName == "UserName already Exist")
@@ -25,7 +27,7 @@
                 <p class="text-danger">User does not exist! Create Account</p>
             }
 
-            <h3>Sign up</h3>
+            <h3 style="color:white;">Sign up</h3>
             <br />
             <div class="mb-3">
                 @*<label asp-for="UserName"></label>*@
@@ -39,7 +41,7 @@
 
              <div class="mb-3">
                 @*<label asp-for="Password"></label>*@
-                <input asp-for="RestaurantImage" placeholder="Restaurant Image" class="form-control" style="width:100%"/>
+                <input asp-for="RestaurantImage" placeholder="Restaurant Image Url" class="form-control" style="width:100%"/>
             </div>
 
              <div class="mb-3">
@@ -57,3 +59,4 @@
     </div>
 
 </form>
+</div>

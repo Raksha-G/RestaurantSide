@@ -11,6 +11,9 @@
 using System;
 using System.Reflection;
 
+[assembly: AspNetCore.SassCompiler.SassCompilerAttribute("C:\\Users\\vempadapu_prasanth\\.nuget\\packages\\aspnetcore.sasscompiler\\1.57.1\\build\\" +
+    "..\\runtimes\\win-x64\\src\\dart.exe", "C:\\Users\\vempadapu_prasanth\\.nuget\\packages\\aspnetcore.sasscompiler\\1.57.1\\build\\" +
+    "..\\runtimes\\win-x64\\src\\sass.snapshot")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("RestaurantSideApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

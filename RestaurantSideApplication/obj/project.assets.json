@@ -2,16 +2,35 @@
   "version": 3,
   "targets": {
     "net6.0": {
-      "Microsoft.Extensions.Configuration/2.0.0": {
+      "AspNetCore.SassCompiler/1.57.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "2.0.0"
+          "Microsoft.Extensions.Configuration.Binder": "3.1.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0",
+          "Microsoft.Extensions.Hosting.Abstractions": "3.1.0",
+          "Microsoft.Extensions.Options": "3.1.0"
         },
         "compile": {
-          "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll": {}
+          "lib/net6.0/AspNetCore.SassCompiler.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll": {}
+          "lib/net6.0/AspNetCore.SassCompiler.dll": {}
+        },
+        "build": {
+          "build/AspNetCore.SassCompiler.props": {},
+          "build/AspNetCore.SassCompiler.targets": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration/3.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.dll": {}
         }
       },
       "Microsoft.Extensions.Configuration.Abstractions/3.1.8": {
@@ -26,16 +45,16 @@
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {}
         }
       },
-      "Microsoft.Extensions.Configuration.Binder/2.0.0": {
+      "Microsoft.Extensions.Configuration.Binder/3.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "2.0.0"
+          "Microsoft.Extensions.Configuration": "3.1.0"
         },
         "compile": {
-          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll": {}
         }
       },
       "Microsoft.Extensions.DependencyInjection/5.0.0": {
@@ -423,17 +442,55 @@
     }
   },
   "libraries": {
-    "Microsoft.Extensions.Configuration/2.0.0": {
-      "sha512": "SsI4RqI8EH00+cYO96tbftlh87sNUv1eeyuBU1XZdQkG0RrHAOjWgl7P0FoLeTSMXJpOnfweeOWj2d1/5H3FxA==",
+    "AspNetCore.SassCompiler/1.57.1": {
+      "sha512": "QgB5eY/BuOCvUdQMEc+tXxLPKEi9s7wjGO1pf3JIhBlSxiNVmszk01S/t8iqpAq0Fu0TDuyobtMIJGSUfyVFKw==",
       "type": "package",
-      "path": "microsoft.extensions.configuration/2.0.0",
+      "path": "aspnetcore.sasscompiler/1.57.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "README.md",
+        "aspnetcore.sasscompiler.1.57.1.nupkg.sha512",
+        "aspnetcore.sasscompiler.nuspec",
+        "build/AspNetCore.SassCompiler.props",
+        "build/AspNetCore.SassCompiler.targets",
+        "lib/net5.0/AspNetCore.SassCompiler.dll",
+        "lib/net6.0/AspNetCore.SassCompiler.dll",
+        "lib/netcoreapp3.1/AspNetCore.SassCompiler.dll",
+        "lib/netstandard2.0/AspNetCore.SassCompiler.Tasks.dll",
+        "logo.png",
+        "runtimes/linux-arm64/sass",
+        "runtimes/linux-arm64/src/LICENSE",
+        "runtimes/linux-x64/sass",
+        "runtimes/linux-x64/src/LICENSE",
+        "runtimes/osx-arm64/sass",
+        "runtimes/osx-arm64/src/LICENSE",
+        "runtimes/osx-arm64/src/dart",
+        "runtimes/osx-arm64/src/sass.snapshot",
+        "runtimes/osx-x64/sass",
+        "runtimes/osx-x64/src/LICENSE",
+        "runtimes/osx-x64/src/dart",
+        "runtimes/osx-x64/src/sass.snapshot",
+        "runtimes/win-x64/sass.bat",
+        "runtimes/win-x64/src/LICENSE",
+        "runtimes/win-x64/src/dart.exe",
+        "runtimes/win-x64/src/sass.snapshot"
+      ]
+    },
+    "Microsoft.Extensions.Configuration/3.1.0": {
+      "sha512": "Lu41BWNmwhKr6LgyQvcYBOge0pPvmiaK8R5UHXX4//wBhonJyWcT2OK1mqYfEM5G7pTf31fPrpIHOT6sN7EGOA==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.dll",
+        "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.xml",
-        "microsoft.extensions.configuration.2.0.0.nupkg.sha512",
-        "microsoft.extensions.configuration.nuspec"
+        "microsoft.extensions.configuration.3.1.0.nupkg.sha512",
+        "microsoft.extensions.configuration.nuspec",
+        "packageIcon.png"
       ]
     },
     "Microsoft.Extensions.Configuration.Abstractions/3.1.8": {
@@ -452,17 +509,20 @@
         "microsoft.extensions.configuration.abstractions.nuspec"
       ]
     },
-    "Microsoft.Extensions.Configuration.Binder/2.0.0": {
-      "sha512": "IznHHzGUtrdpuQqIUdmzF6TYPcsYHONhHh3o9dGp39sX/9Zfmt476UnhvU0UhXgJnXXAikt/MpN6AuSLCCMdEQ==",
+    "Microsoft.Extensions.Configuration.Binder/3.1.0": {
+      "sha512": "o9eELDBfNkR7sUtYysFZ1Q7BQ1mYt27DMkups/3vu7xgPyOpMD+iAfrBZFzUXT2iw0fmFb8s1gfNBZS+IgjKdQ==",
       "type": "package",
-      "path": "microsoft.extensions.configuration.binder/2.0.0",
+      "path": "microsoft.extensions.configuration.binder/3.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.xml",
-        "microsoft.extensions.configuration.binder.2.0.0.nupkg.sha512",
-        "microsoft.extensions.configuration.binder.nuspec"
+        "microsoft.extensions.configuration.binder.3.1.0.nupkg.sha512",
+        "microsoft.extensions.configuration.binder.nuspec",
+        "packageIcon.png"
       ]
     },
     "Microsoft.Extensions.DependencyInjection/5.0.0": {
@@ -1182,25 +1242,26 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "AspNetCore.SassCompiler >= 1.57.1",
       "Serilog >= 2.12.1-dev-01587",
       "Serilog.AspNetCore >= 6.1.0-dev-00285",
       "System.Data.SqlClient >= 4.8.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\raksha_ganyarpawar\\.nuget\\packages\\": {}
+    "C:\\Users\\vempadapu_prasanth\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\raksha_ganyarpawar\\source\\repos\\RestaurantSideApplication\\RestaurantSideApplication\\RestaurantSideApplication.csproj",
+      "projectUniqueName": "F:\\RestaurantSide\\RestaurantSideApplication\\RestaurantSideApplication.csproj",
       "projectName": "RestaurantSideApplication",
-      "projectPath": "C:\\Users\\raksha_ganyarpawar\\source\\repos\\RestaurantSideApplication\\RestaurantSideApplication\\RestaurantSideApplication.csproj",
-      "packagesPath": "C:\\Users\\raksha_ganyarpawar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\raksha_ganyarpawar\\source\\repos\\RestaurantSideApplication\\RestaurantSideApplication\\obj\\",
+      "projectPath": "F:\\RestaurantSide\\RestaurantSideApplication\\RestaurantSideApplication.csproj",
+      "packagesPath": "C:\\Users\\vempadapu_prasanth\\.nuget\\packages\\",
+      "outputPath": "F:\\RestaurantSide\\RestaurantSideApplication\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\raksha_ganyarpawar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vempadapu_prasanth\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1226,6 +1287,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "AspNetCore.SassCompiler": {
+            "target": "Package",
+            "version": "[1.57.1, )"
+          },
           "Serilog": {
             "target": "Package",
             "version": "[2.12.1-dev-01587, )"
@@ -1257,7 +1322,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

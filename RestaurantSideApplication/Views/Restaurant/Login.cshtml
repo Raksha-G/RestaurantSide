@@ -5,10 +5,12 @@
 *@
 @{
 }
+<div class="bg-container">
+
 
 
 <form method="post">
-    <div class="border p-3 mt-4 container  align-self-center " style="width:40%">
+    <div class="border p-3 container  align-self-center " style="width:40%">
 
         <div class="p-3 mt-4 container align-self-center">
            @* @if(ViewBag.NotExist == "NotExist")
@@ -20,7 +22,7 @@
                 <p class="text-danger">Restaurant not exist</p>
             }
 
-            <h3>Log In</h3>
+            <h3 style="color:white;">Log In</h3>
             <br />
             <div class="mb-3">
                 @*<label asp-for="UserName"></label>*@
@@ -49,3 +51,4 @@
 
 </form>
 
+</div>

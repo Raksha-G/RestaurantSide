@@ -1,0 +1,68 @@
+﻿.bg-container {
+    background-image: url("https://b.zmtcdn.com/mx-onboarding-hero87f77501659a5656cad54d98e72bf0d81627911821.webp");
+    background-size: cover;
+    height: 100vh;
+}
+
+.heading {
+    color: white;
+    width: 150px;
+    font-size: 35px;
+    margin-bottom: 0px;
+}
+
+.para {
+    font-size: 18px;
+    margin-top: 0px;
+    color: white;
+}
+
+.top-container {
+    padding: 20px;
+    padding-left: 120px;
+    padding-right: 120px;
+    padding-bottom: 150px;
+}
+
+.login-button {
+    border: 1px solid white;
+    background-color:;
+    color: white;
+    margin-right: 10px;
+    height: 40px;
+}
+
+.create-button {
+    height: 40px;
+}
+.button-container{
+    width:220px;
+    height:40px;
+}
+
+.register-heading {
+    color: white;
+    font-size: 38px;
+    margin-bottom: 0px;
+}
+
+.register-para {
+    color: white;
+    margin-top: 3px;
+}
+
+.register-button {
+    height: 40px;
+    width: 1000px;
+}
+.register-login-button {
+    border: 1px solid white;
+    background-color:;
+    color: white;
+    margin-right: 10px;
+    height: 40px;
+}
+.register-container {
+    width: 580px;
+    height: 40px;
+}

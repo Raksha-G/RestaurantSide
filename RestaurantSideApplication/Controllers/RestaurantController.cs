@@ -79,7 +79,7 @@ namespace RestaurantSideApplication.Controllers
         {
             _logger.LogInformation("{0} logged out from the Restaurant {1}", _httpContextAccessor.HttpContext.Session.GetString("UserName"), _httpContextAccessor.HttpContext.Session.GetString("RestaurantName"));
             _httpContextAccessor.HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+            return RedirectToAction("Index","Home");
         }
 
         public IActionResult Login()

@@ -7,14 +7,14 @@
 }
 
 
-
+<div class="bg-black" style="height:100vh; padding-top:20px;">
 
 <form method="post" enctype="multipart/form-data">
     <div class="border p-3 mt-4 container  align-self-center " style="width:40%">
 
         <div class="p-3 mt-4 container align-self-center">
           
-            <h2>Add Food Item</h2>
+            <h2 class="text-success">Add Food Item</h2>
             <br />
 
             <div class="mb-3">
@@ -29,11 +29,11 @@
                 <input asp-for="Price" placeholder="Price" class="form-control" style="width:100%"/>
             </div>
 
-            <div class="mb-3">
-                @*<label asp-for="ImageFile" class="control-label"></label>*@
+            @*<div class="mb-3">
+                
                 <input asp-for="ImageFile" accept="image/*" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
-            </div>
+            </div>*@
 
             <button asp-controller="Restaurant" asp-action="Create" type="submit" class="btn btn-outline-primary" style="width:100% ">Submit</button>
 
@@ -43,6 +43,7 @@
         
     </div>
 </form>
+</div>
 
 @section scripts
 {

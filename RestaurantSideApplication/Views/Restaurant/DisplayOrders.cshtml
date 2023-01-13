@@ -5,10 +5,10 @@
 *@
 @{
 }
+<div class="bg-black" style="height:100vh; padding-top:10px;">
 
-
-<div class="d-flex justify-content-between">
-    <h2 class="text-success">
+<div >
+    <h2 style="text-align:center;" class="text-success">
         Orders
     </h2>
 @*   <table>
@@ -22,8 +22,8 @@
 <br/>
 @*@using(@Html.BeginForm("CompletedOrder","Restaurant",FormMethod.Post))
 {*@
- <table  class="table table-striped">
-        <tr>
+ <table  class="table table-striped ">
+        <tr class="text-white">
                 <th>Order Id</th>
                 <th>InVoiceNo</th>
                 <th>UserName</th>
@@ -39,7 +39,7 @@
         @foreach(var obj in Model)
         {
         
-            <tr>
+            <tr class="text-white">
                 <td>@i</td>
 
                 <td>@obj.InVoiceNo</td>
@@ -63,4 +63,4 @@
  
 
 
- 
+ </div>
