@@ -1,44 +1,48 @@
 ﻿@model FoodItem
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+     ViewData["Title"] = "EditFoodItem";
 }
-
 
 <div class="bg-black" style="height:100vh; padding-top:20px;">
 
-<form method="post" asp-controller="Restaurant" asp-action="AddFoodItem">
+<form method="post" asp-controller="Restaurant" asp-action="EditFoodItem">
     <div class="border p-3 mt-4 container  align-self-center " style="width:40%">
 
         <div class="p-3 mt-4 container align-self-center">
           
-            <h2 class="text-success">Add Food Item</h2>
+            <h2 class="text-success">Edit Food Item</h2>
             <br />
 
             <div class="mb-3">
-               <input value="" asp-for="FoodItemName" placeholder="FoodItem Name" class="form-control" style="width:100%"/>
+               <input value="@Model.FoodItemName" asp-for="FoodItemName" placeholder="FoodItem Name" class="form-control" style="width:100%"/>
             </div>
 
              <div class="mb-3">
-                <input value="" asp-for="FoodItemImage" placeholder="FoodItem Image" class="form-control" style="width:100%"/>
+                <input value="@Model.FoodItemImage" asp-for="FoodItemImage" placeholder="FoodItem Image" class="form-control" style="width:100%"/>
             </div> 
 
              <div class="mb-3">
-                <input value="" asp-for="Price" placeholder="Price" class="form-control" style="width:100%"/>
+                <input value="@Model.Price" asp-for="Price" placeholder="Price" class="form-control" style="width:100%"/>
             </div>
 
             @*<div class="mb-3">
                 <input asp-for="ImageFile" accept="image/*" class="form-control" style="width:100%"/>
             </div>*@
+
             <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-primary" style="width:45% ">Submit</button>
+                <button type="submit" class="btn btn-primary" style="width:45% ">Save</button>
             <a class="btn btn-danger btn-style"  style="width:45% " asp-controller="Restaurant" asp-action="DisplayFoodItems">Cancel</a>
             </div>
-            
-        </div>
+            <script>
+                
+                function btnFunction()
+                {
+                    alert("Edited Successfully");
+                }
+            </script>
 
+        </div>
 
       
         

@@ -1,0 +1,21 @@
+﻿.image{
+    height:200px;
+    border-radius:20px;
+    margin-bottom:10px;
+}
+.item-btn{
+    color:white;
+    
+}
+.item-name{
+    font-weight:500;
+    
+}
+.item-container{
+    border-radius:15px;
+    width:23%;
+    margin:10px;
+    background-color:white;
+    padding-top:10px;
+   
+}

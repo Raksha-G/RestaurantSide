@@ -25,7 +25,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-0">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">JustEat</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Restaurant" asp-action="DisplayOrders">JustEat</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -35,7 +35,6 @@
                         <li class="nav-item">
                             @if(String.IsNullOrEmpty(_httpContextAccessor.HttpContext.Session.GetString("RestaurantName")))
                             {
-                                
                                 //<a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Login">Log in</a>
                             }
                         </li>
@@ -43,7 +42,7 @@
                         <li class="nav-item">
                             @if(String.IsNullOrEmpty(_httpContextAccessor.HttpContext.Session.GetString("RestaurantName")))
                             {
-                                //<a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="CreateAccount">Sign up</a>
+                               // <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="CreateAccount">Sign up</a>
                                 
                             }
                         </li>
@@ -76,7 +75,15 @@
                                             <ul>
                                                 <li>
                                                     <span class="material-icons icons-size"></span>
-                                                    <a asp-controller="Restaurant" asp-action="AddFoodItem">Add Food Item</a>
+                                                    <a asp-controller="Restaurant" asp-action="DisplayOrders">Orders</a>
+                                                </li>
+                                                <li>
+                                                    <span class="material-icons icons-size"></span>
+                                                    <a asp-controller="Restaurant" asp-action="DisplayFoodItems">Food Items</a>
+                                                </li>
+                                                <li>
+                                                    <span class="material-icons icons-size"></span>
+                                                    <a asp-controller="Restaurant" asp-action="History">History</a>
                                                 </li>
                                                  <li>
                                                     <span class="material-icons icons-size"></span>
@@ -109,12 +116,16 @@
 
 
     <div>
-        <main role="main" class="pb-3">
+        <main role="main" class="">
             @RenderBody()
         </main>
     </div>
 
-    
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - JustEat - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

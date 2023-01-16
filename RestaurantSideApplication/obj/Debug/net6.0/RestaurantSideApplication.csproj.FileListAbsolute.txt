@@ -96,3 +96,5 @@ F:\RestaurantSide\RestaurantSideApplication\bin\Debug\net6.0\AspNetCore.SassComp
 F:\RestaurantSide\RestaurantSideApplication\obj\Debug\net6.0\scopedcss\Views\Home\Index.cshtml.rz.scp.css
 F:\RestaurantSide\RestaurantSideApplication\obj\Debug\net6.0\scopedcss\Views\Restaurant\Login.cshtml.rz.scp.css
 F:\RestaurantSide\RestaurantSideApplication\obj\Debug\net6.0\scopedcss\Views\Restaurant\CreateAccount.cshtml.rz.scp.css
+F:\RestaurantSide\RestaurantSideApplication\obj\Debug\net6.0\scopedcss\Views\Restaurant\DisplayFoodItems.cshtml.rz.scp.css
+F:\RestaurantSide\RestaurantSideApplication\obj\Debug\net6.0\scopedcss\Views\Restaurant\DeleteFoodItem.cshtml.rz.scp.css

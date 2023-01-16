@@ -27,6 +27,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxEaXNwbGF5T3JkZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/RestaurantSide/RestaurantSideApplication/Views/Restaurant/EditFoodItem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxFZGl0Rm9vZEl0ZW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/RestaurantSide/RestaurantSideApplication/Views/Restaurant/History.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxIaXN0b3J5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/RestaurantSide/RestaurantSideApplication/Views/Restaurant/Logged.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxMb2dnZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -54,6 +62,14 @@ build_metadata.AdditionalFiles.CssScope = b-b197b0zg9j
 [F:/RestaurantSide/RestaurantSideApplication/Views/Restaurant/CreateAccount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxDcmVhdGVBY2NvdW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = b-5uz3y51f0r
+
+[F:/RestaurantSide/RestaurantSideApplication/Views/Restaurant/DeleteFoodItem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxEZWxldGVGb29kSXRlbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = b-gied53k240
+
+[F:/RestaurantSide/RestaurantSideApplication/Views/Restaurant/DisplayFoodItems.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxEaXNwbGF5Rm9vZEl0ZW1zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-zqp9313x8n
 
 [F:/RestaurantSide/RestaurantSideApplication/Views/Restaurant/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxMb2dpbi5jc2h0bWw=

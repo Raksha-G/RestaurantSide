@@ -6,8 +6,9 @@ namespace RestaurantSideApplication.Models
 {
     public class FoodItem
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        /*[Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]*/
+        
         public int FoodItemId { get; set; }
         public string FoodItemName { get; set; }
 
@@ -15,13 +16,21 @@ namespace RestaurantSideApplication.Models
 
         public int Price { get; set; }
 
-        public int RestaurantId { get; set; }
+        /*public int RestaurantId { get; set; }
 
         [NotMapped]
         [DisplayName("Upload File")]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile ImageFile { get; set; }*/
+
+        public FoodItem(int foodItemId, string foodItemName, string foodItemImage, int price)
+        {
+            FoodItemId = foodItemId;
+            FoodItemName = foodItemName;
+            FoodItemImage = foodItemImage;
+            Price = price;
 
 
+        }
         public FoodItem(string foodItemName, string foodItemImage, int price)
         {
        
@@ -30,15 +39,7 @@ namespace RestaurantSideApplication.Models
             Price = price;
           
         }
-        public FoodItem(string foodItemName, string foodItemImage, int price,IFormFile imageFile)
-        {
-
-            FoodItemName = foodItemName;
-            FoodItemImage = foodItemImage;
-            Price = price;
-            ImageFile = imageFile;
-
-        }
+        
 
         public FoodItem()
         {

@@ -1,16 +1,13 @@
-﻿@model List<Order>
-
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<CompletedOrder>
 @{
+    ViewData["Title"] = "History";
 }
-@if(Model.Count<=11)
+@if(@Model.Count<=11)
 {
     <div class="bg-black" style="height:100vh; padding-top:10px;">
         <div >
     <h2 style="text-align:center;" class="text-success">
-        Orders
+        Completed Orders
     </h2>
 @*   <table>
         
@@ -31,7 +28,7 @@
                 <th>Food Item</th>
                 <th>Quantity</th>
                 <th>Price</th>
-                <th>Order Time</th>
+                <th>Delivered Time</th>
                 <th>      </th>
         </tr>
     @{
@@ -53,10 +50,10 @@
               
                 <td>@obj.Price</td>
                 
-                <td>@obj.OrderTime</td>
+                <td>@obj.DeliveredDate</td>
                 
                         
-                <td><a asp-controller="Restaurant" asp-action="CompletedOrder" asp-route-id = "@obj.OrderNo" class="btn btn-primary">Deliver</a></td>
+                <td class="text-success" style="font-weight:500;">Delivered</td>
             </tr>
             i++;
         }   
@@ -69,7 +66,7 @@ else
     <div class="bg-black" style="padding-bottom:25px; padding-top:10px;">
         <div >
     <h2 style="text-align:center;" class="text-success">
-        Orders
+        Completed Orders
     </h2>
 @*   <table>
         
@@ -90,7 +87,7 @@ else
                 <th>Food Item</th>
                 <th>Quantity</th>
                 <th>Price</th>
-                <th>Order Time</th>
+                <th>Delivered Time</th>
                 <th>      </th>
         </tr>
     @{
@@ -112,20 +109,20 @@ else
               
                 <td>@obj.Price</td>
                 
-                <td>@obj.OrderTime</td>
+                <td>@obj.DeliveredDate</td>
                 
                         
-                <td><a asp-controller="Restaurant" asp-action="CompletedOrder" asp-route-id = "@obj.OrderNo" class="btn btn-primary">Deliver</a></td>
+                <td class="text-success" style="font-weight:500;">Delivered</td>
             </tr>
             i++;
         }   
  </table>
-
-    </div>
+        </div>
 }
 
 
 
  
+
 
 

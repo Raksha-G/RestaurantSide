@@ -1,0 +1,21 @@
+.image[b-zqp9313x8n]{
+    height:200px;
+    border-radius:20px;
+    margin-bottom:10px;
+}
+.item-btn[b-zqp9313x8n]{
+    color:white;
+    
+}
+.item-name[b-zqp9313x8n]{
+    font-weight:500;
+    
+}
+.item-container[b-zqp9313x8n]{
+    border-radius:15px;
+    width:23%;
+    margin:10px;
+    background-color:white;
+    padding-top:10px;
+   
+}
