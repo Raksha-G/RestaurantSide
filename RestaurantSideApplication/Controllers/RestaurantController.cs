@@ -224,7 +224,7 @@ namespace RestaurantSideApplication.Controllers
 
             conn.Close();
 
-            SqlCommand sqlCommand1 = new SqlCommand(String.Format("insert into Food values('{0}','{1}','{2}','{3}')", foodItem.FoodItemImage, foodItem.FoodItemName, foodItem.Price, resId), conn);
+            SqlCommand sqlCommand1 = new SqlCommand(String.Format("insert into Food values('{0}','{1}','{2}','{3}','{4}')", foodItem.FoodItemImage, foodItem.FoodItemName, foodItem.Price, resId,foodItem.Type), conn);
             conn.Open();
             sqlCommand1.ExecuteNonQuery();
             conn.Close();

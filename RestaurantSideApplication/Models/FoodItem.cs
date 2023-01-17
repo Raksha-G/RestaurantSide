@@ -16,6 +16,8 @@ namespace RestaurantSideApplication.Models
 
         public int Price { get; set; }
 
+        public  string Type { get; set; }
+
         /*public int RestaurantId { get; set; }
 
         [NotMapped]
@@ -39,7 +41,18 @@ namespace RestaurantSideApplication.Models
             Price = price;
           
         }
-        
+
+        public FoodItem(int foodItemId, string foodItemName, string foodItemImage, int price,string type)
+        {
+            FoodItemId = foodItemId;
+            FoodItemName = foodItemName;
+            FoodItemImage = foodItemImage;
+            Price = price;
+            Type = type;
+
+
+        }
+
 
         public FoodItem()
         {
