@@ -19,7 +19,7 @@ namespace RestaurantSideApplication.Controllers
             this._httpContextAccessor = httpContextAccessor;
 
 
-            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=True;");
+            SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
             SqlCommand cmd = new SqlCommand("select * from RestaurantLoginDetails", conn);
             conn.Open();
             SqlDataReader sr = cmd.ExecuteReader();
@@ -58,7 +58,7 @@ namespace RestaurantSideApplication.Controllers
                 _logger.LogInformation("Restaurant:{0} already Exist, unable to create new Account", signup.RestaurantName);
                 return View();
             }
-            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ; Initial Catalog = FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
             
             SqlCommand cmd = new SqlCommand(String.Format("insert into RestaurantLoginDetails values('{0}','{1}','{2}')", signup.RestaurantName, signup.UserName, signup.Password), conn);
             conn.Open();
@@ -132,7 +132,7 @@ namespace RestaurantSideApplication.Controllers
             }
 
 
-            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
             SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}'", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName")), conn);
             conn.Open();
             SqlDataReader sr = cmd.ExecuteReader();
@@ -158,7 +158,7 @@ namespace RestaurantSideApplication.Controllers
                 return RedirectToAction("Login");
             }
 
-            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
             SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail where OrderNo = '{0}'", Id), conn);
             conn.Open();
             SqlDataReader sr = cmd.ExecuteReader();
@@ -212,7 +212,7 @@ namespace RestaurantSideApplication.Controllers
                 _logger.LogInformation("{0} logged out from theRestaurant {1}", HttpContext.Session.GetString("UserName"), HttpContext.Session.GetString("RestaurantName"));
                 return RedirectToAction("Login");
             }
-            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
 
             SqlCommand sqlCommand = new SqlCommand(String.Format("select Restaurant_Id from Restaurants where Restaurant_Name='{0}'", HttpContext.Session.GetString("RestaurantName")), conn);
             conn.Open();
@@ -240,7 +240,7 @@ namespace RestaurantSideApplication.Controllers
                 _logger.LogInformation("{0} logged out from theRestaurant {1}", HttpContext.Session.GetString("UserName"), HttpContext.Session.GetString("RestaurantName"));
                 return RedirectToAction("Login");
             }
-            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
 
             SqlCommand sqlCommand = new SqlCommand(String.Format("select Restaurant_Id from Restaurants where Restaurant_Name='{0}'", HttpContext.Session.GetString("RestaurantName")), conn);
             conn.Open();
@@ -252,7 +252,7 @@ namespace RestaurantSideApplication.Controllers
 
             conn.Close();
             List<FoodItem> foodItems = new List<FoodItem>();
-            SqlConnection conn1 = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn1 = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
 
             SqlCommand sqlCommand1 = new SqlCommand(String.Format("select * from Food where Restaurant_Id='{0}'", resId), conn);
             conn.Open();
@@ -274,8 +274,8 @@ namespace RestaurantSideApplication.Controllers
                 _logger.LogInformation("{0} logged out from theRestaurant {1}", HttpContext.Session.GetString("UserName"), HttpContext.Session.GetString("RestaurantName"));
                 return RedirectToAction("Login");
             }
-            foodItemsList=new List<FoodItem>();
-            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            foodItemsList = new List<FoodItem>();
+            SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
 
             SqlCommand sqlCommand = new SqlCommand(String.Format("select Restaurant_Id from Restaurants where Restaurant_Name='{0}'", HttpContext.Session.GetString("RestaurantName")), conn);
             conn.Open();
@@ -286,19 +286,19 @@ namespace RestaurantSideApplication.Controllers
             }
 
             conn.Close();
-            
-            SqlConnection conn1 = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+
+            SqlConnection conn1 = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
 
             SqlCommand sqlCommand1 = new SqlCommand(String.Format("select * from Food where Restaurant_Id='{0}'", resId), conn);
             conn.Open();
             SqlDataReader sr1 = sqlCommand1.ExecuteReader();
             while (sr1.Read())
             {
-                foodItemsList.Add(new FoodItem((int)sr1["Id"], sr1["Food_Item"].ToString(), sr1["Food_Image"].ToString(), (int)sr1["Price"]));
+                foodItemsList.Add(new FoodItem((int)sr1["Id"], sr1["Food_Item"].ToString(), sr1["Food_Image"].ToString(), (int)sr1["Price"], sr1["FoodType"].ToString()));
             }
 
             conn1.Close();
-            var item= foodItemsList.Find(e => e.FoodItemId == id);
+            var item = foodItemsList.Find(e => e.FoodItemId == id);
             return View(item);
         }
         [HttpPost]
@@ -309,11 +309,11 @@ namespace RestaurantSideApplication.Controllers
                 _logger.LogInformation("{0} logged out from theRestaurant {1}", HttpContext.Session.GetString("UserName"), HttpContext.Session.GetString("RestaurantName"));
                 return RedirectToAction("Login");
             }
-            var fi = foodItemsList.Find(e=>e.FoodItemId==id);
+            var fi = foodItemsList.Find(e => e.FoodItemId == id);
             if (fi != null)
             {
-                SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
-                SqlCommand cmd = new SqlCommand(String.Format("update Food set Food_Image='{0}',Food_Item='{1}',Price='{2}' where Id = '{3}'",f.FoodItemImage,f.FoodItemName,f.Price, id), conn);
+                SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
+                SqlCommand cmd = new SqlCommand(String.Format("update Food set Food_Image='{0}',Food_Item='{1}',Price='{2}',FoodType='{3}' where Id = '{4}'", f.FoodItemImage, f.FoodItemName, f.Price, f.Type, id), conn);
                 conn.Open();
                 cmd.ExecuteNonQuery();
                 conn.Close();
@@ -330,7 +330,7 @@ namespace RestaurantSideApplication.Controllers
                 return RedirectToAction("Login");
             }
             foodItemsList = new List<FoodItem>();
-            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
 
             SqlCommand sqlCommand = new SqlCommand(String.Format("select Restaurant_Id from Restaurants where Restaurant_Name='{0}'", HttpContext.Session.GetString("RestaurantName")), conn);
             conn.Open();
@@ -342,7 +342,7 @@ namespace RestaurantSideApplication.Controllers
 
             conn.Close();
 
-            SqlConnection conn1 = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn1 = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
 
             SqlCommand sqlCommand1 = new SqlCommand(String.Format("select * from Food where Restaurant_Id='{0}'", resId), conn);
             conn.Open();
@@ -366,7 +366,7 @@ namespace RestaurantSideApplication.Controllers
                 return RedirectToAction("Login");
             }
            
-            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
             SqlCommand cmd = new SqlCommand(String.Format("Delete from Food where Id = '{0}'", id), conn);
             conn.Open();
             cmd.ExecuteNonQuery();
@@ -383,7 +383,7 @@ namespace RestaurantSideApplication.Controllers
                 _logger.LogInformation("{0} logged out from theRestaurant {1}", HttpContext.Session.GetString("UserName"), HttpContext.Session.GetString("RestaurantName"));
                 return RedirectToAction("Login");
             }
-            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
 
             SqlCommand sqlCommand = new SqlCommand(String.Format("select Restaurant_Id from Restaurants where Restaurant_Name='{0}'", HttpContext.Session.GetString("RestaurantName")), conn);
             conn.Open();
@@ -396,7 +396,7 @@ namespace RestaurantSideApplication.Controllers
             conn.Close();
 
             List<CompletedOrder> completedOrders = new List<CompletedOrder>();
-            SqlConnection conn1 = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn1 = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
             SqlCommand cmd1 = new SqlCommand(String.Format("select * from CompletedOrder where RestaurantId='{0}'",resId), conn1);
             conn1.Open();
             SqlDataReader sr1 = cmd1.ExecuteReader();
@@ -410,7 +410,7 @@ namespace RestaurantSideApplication.Controllers
 
         /* public IActionResult Delete(int Id)
          {
-             SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+             SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
              SqlCommand cmd = new SqlCommand(String.Format("delete from ConfirmOrder where OrderId = '{0}'",Id), conn);
              conn.Open();
              cmd.ExecuteNonQuery();
@@ -439,7 +439,7 @@ namespace RestaurantSideApplication.Controllers
 
 
 
-            SqlConnection conn = new SqlConnection("Data Source = PSL-28MH6Q3 ;Initial Catalog=FoodDeliveryApplication; Integrated Security = True;");
+            SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
                 int resId;
                 SqlCommand sqlCommand = new SqlCommand(String.Format("select Restaurant_Id from Restaurants where Restaurant_Name='{0}'", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName")), conn);
                 conn.Open();

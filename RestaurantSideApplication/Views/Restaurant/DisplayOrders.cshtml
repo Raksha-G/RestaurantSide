@@ -1,11 +1,14 @@
-﻿@model List<Order>
+﻿@using System.Data.SqlClient
+@model List<Order>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
 @{
+    
 }
-@if(Model.Count<=11)
+@if(Model.Count<=8)
 {
     <div class="bg-black" style="height:100vh; padding-top:10px;">
         <div >
@@ -31,15 +34,28 @@
                 <th>Food Item</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                <th>Address</th>
                 <th>Order Time</th>
-                <th>      </th>
+                
         </tr>
     @{
         int i = 1;
     }
         @foreach(var obj in Model)
         {
-        
+                   
+                 SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
+
+                        SqlCommand sqlCommand = new SqlCommand(String.Format("select Address from Orders where InVoiceNo = '{0}'",obj.InVoiceNo) , conn);
+                        conn.Open();
+                        SqlDataReader sr = sqlCommand.ExecuteReader();
+                        while (sr.Read())
+                        {
+                    ViewBag.Add = sr["Address"].ToString();
+                }
+
+                        conn.Close();
+            
             <tr class="text-white">
                 <td>@i</td>
 
@@ -52,7 +68,7 @@
                 <td>@obj.Quantity</td>
               
                 <td>@obj.Price</td>
-                
+                <td>@ViewBag.Add</td>
                 <td>@obj.OrderTime</td>
                 
                         
@@ -90,15 +106,28 @@ else
                 <th>Food Item</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                <th>Address</th>
                 <th>Order Time</th>
-                <th>      </th>
+                
         </tr>
     @{
         int i = 1;
     }
         @foreach(var obj in Model)
         {
-        
+                   
+                 SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
+
+                        SqlCommand sqlCommand = new SqlCommand(String.Format("select Address from Orders where InVoiceNo = '{0}'",obj.InVoiceNo) , conn);
+                        conn.Open();
+                        SqlDataReader sr = sqlCommand.ExecuteReader();
+                        while (sr.Read())
+                        {
+                    ViewBag.Add = sr["Address"].ToString();
+                }
+
+                        conn.Close();
+            
             <tr class="text-white">
                 <td>@i</td>
 
@@ -111,7 +140,7 @@ else
                 <td>@obj.Quantity</td>
               
                 <td>@obj.Price</td>
-                
+                <td>@ViewBag.Add</td>
                 <td>@obj.OrderTime</td>
                 
                         

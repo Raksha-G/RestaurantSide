@@ -1249,19 +1249,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\raksha_ganyarpawar\\.nuget\\packages\\": {}
+    "C:\\Users\\vempadapu_prasanth\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\raksha_ganyarpawar\\source\\repos\\RestaurantSideApplication1\\RestaurantSide\\RestaurantSideApplication\\RestaurantSideApplication.csproj",
+      "projectUniqueName": "F:\\Final Project\\RestaurantSide\\RestaurantSideApplication\\RestaurantSideApplication.csproj",
       "projectName": "RestaurantSideApplication",
-      "projectPath": "C:\\Users\\raksha_ganyarpawar\\source\\repos\\RestaurantSideApplication1\\RestaurantSide\\RestaurantSideApplication\\RestaurantSideApplication.csproj",
-      "packagesPath": "C:\\Users\\raksha_ganyarpawar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\raksha_ganyarpawar\\source\\repos\\RestaurantSideApplication1\\RestaurantSide\\RestaurantSideApplication\\obj\\",
+      "projectPath": "F:\\Final Project\\RestaurantSide\\RestaurantSideApplication\\RestaurantSideApplication.csproj",
+      "packagesPath": "C:\\Users\\vempadapu_prasanth\\.nuget\\packages\\",
+      "outputPath": "F:\\Final Project\\RestaurantSide\\RestaurantSideApplication\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\raksha_ganyarpawar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vempadapu_prasanth\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1322,7 +1322,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
