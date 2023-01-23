@@ -278,7 +278,7 @@ namespace RestaurantSideApplication.Controllers
             }
             ViewBag.Id = Id;
             SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
-            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}' AND PO.OrdorNo='{1}'", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName"), Id), conn);
+            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}' AND PO.OrderNo='{1}'", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName"), Id), conn);
             conn.Open();
             SqlDataReader sr = cmd.ExecuteReader();
             Order orderDetails = new Order();
