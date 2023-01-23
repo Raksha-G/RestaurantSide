@@ -1,0 +1,45 @@
+﻿@model Order
+
+<style>
+    .bg-container{
+        background-color: blanchedalmond;
+        margin:20px;
+        padding:30px;
+    }
+  .bg-items{
+      background-color:white;
+      border-radius:25px;
+      margin:10px;
+      padding:30px;
+  }
+  h1{
+      font-size:25px;
+  }
+  a{
+      margin:15px;
+  }
+  span{
+      font-weight:500;
+  }
+</style>
+<div class="bg-container">
+    <h1 class="text-danger text-center mt-3">Are you Sure? You want to Reject this Order</h1>
+    <div class="d-flex justify-content-center">
+        <div class="bg-items">
+       
+        
+            <h1>Item     : <span>@Model.FoodItem</span></h1>
+            <h1>Quantity : <span>@Model.Quantity</span></h1>
+            <h1>Address  : <span>@ViewBag.Address</span></h1>
+            <h1 class="pt-2">Total Bill : @Model.Price*@Model.Quantity</h1>
+        
+
+    
+    </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <a asp-controller="Restaurant" asp-action="CancelConfirmed" asp-route-id="@Model.OrderNo" class="btn btn-danger mr-3" >Reject</a>
+        <a asp-controller="Restaurant" asp-action="DisplayOrders" class="btn btn-secondary ml-3">Back</a>
+    </div>
+    
+</div>

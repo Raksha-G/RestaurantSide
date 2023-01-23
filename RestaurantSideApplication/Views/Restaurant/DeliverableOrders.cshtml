@@ -8,13 +8,13 @@
 {
     <div class="bg-black" style="height:100vh; padding-top:10px;">
          <div class="d-flex justify-content-center">
-            <a style="margin:15px;" class="btn btn-primary ">Received</a>
+            <a style="margin:15px;" asp-controller="Restaurant" asp-action="DisplayOrders" class="btn btn-secondary ">Received</a>
             <a style="margin:15px;" asp-controller="Restaurant" asp-action="PreparingOrders" class="btn btn-secondary">Preparing Food</a>
-            <a style="margin:15px;" asp-controller="Restaurant" asp-action="DeliverableOrders" class="btn btn-secondary">Deliverable</a>
+            <a style="margin:15px;" class="btn btn-primary">Deliverable</a>
         </div>
         <div >
     <h2 style="text-align:center;" class="text-success">
-       New Orders
+       Orders Ready to Deliver... On the Way to Customer
     </h2>
 @*   <table>
         
@@ -38,7 +38,7 @@
                 <th>Address</th>
                 <th>Order Time</th>
                 <th>  </th>
-                <th>  </th>
+               
                 
         </tr>
     @{
@@ -46,7 +46,7 @@
     }
         @foreach(var obj in Model)
         {
-                @if (@obj.Status != "Placed")
+                @if (@obj.Status != "Prepared")
                 {
                     continue;
                 }
@@ -79,8 +79,8 @@
                 <td>@obj.OrderTime</td>
                 
                  
-                <td><a asp-controller="Restaurant" asp-action="AcceptOrder" asp-route-id = "@obj.OrderNo" class="btn btn-primary">Accept</a></td>
-                <td><a asp-controller="Restaurant" asp-action="CancelOrder" asp-route-id = "@obj.OrderNo" class="btn btn-danger">Reject</a></td>
+                <td><a asp-controller="Restaurant" asp-action="CompletedOrder" asp-route-id = "@obj.OrderNo" class="btn btn-primary">Delivered</a></td>
+                
             </tr>
             i++;
         }   
@@ -92,13 +92,13 @@ else
 {
     <div class="bg-black" style="padding-bottom:25px; padding-top:10px;">
         <div class="d-flex justify-content-center">
-            <a style="margin:15px;" class="btn btn-primary ">Received</a>
+            <a style="margin:15px;" asp-controller="Restaurant" asp-action="DisplayOrders" class="btn btn-secondary ">Received</a>
             <a style="margin:15px;" asp-controller="Restaurant" asp-action="PreparingOrders" class="btn btn-secondary">Preparing Food</a>
-            <a style="margin:15px;" asp-controller="Restaurant" asp-action="DeliverableOrders" class="btn btn-secondary">Deliverable</a>
+            <a style="margin:15px;" class="btn btn-primary">Deliverable</a>
         </div>
         <div >
     <h2 style="text-align:center;" class="text-success">
-       New Orders
+       Orders Ready to Deliver... On the Way to Customer
     </h2>
 @*   <table>
         
@@ -122,7 +122,7 @@ else
                 <th>Address</th>
                 <th>Order Time</th>
                 <th>  </th>
-                <th>  </th>
+               
                 
         </tr>
     @{
@@ -130,7 +130,7 @@ else
     }
         @foreach(var obj in Model)
         {
-                @if (@obj.Status != "Placed")
+                @if (@obj.Status != "Prepared")
                 {
                     continue;
                 }
@@ -163,12 +163,13 @@ else
                 <td>@obj.OrderTime</td>
                 
                  
-                <td><a asp-controller="Restaurant" asp-action="AcceptOrder" asp-route-id = "@obj.OrderNo" class="btn btn-primary">Accept</a></td>
-                <td><a asp-controller="Restaurant" asp-action="CancelOrder" asp-route-id = "@obj.OrderNo" class="btn btn-danger">Reject</a></td>
+                <td><a asp-controller="Restaurant" asp-action="CompletedOrder" asp-route-id = "@obj.OrderNo" class="btn btn-primary">Delivered</a></td>
+                
             </tr>
             i++;
         }   
  </table>
+
 
 
     </div>
