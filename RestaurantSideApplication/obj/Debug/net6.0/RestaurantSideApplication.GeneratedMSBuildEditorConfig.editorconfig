@@ -23,6 +23,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxBZGRGb29kSXRlbS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/Final Project/RestaurantSide/RestaurantSideApplication/Views/Restaurant/CancelOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxDYW5jZWxPcmRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Final Project/RestaurantSide/RestaurantSideApplication/Views/Restaurant/DeliverableOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxEZWxpdmVyYWJsZU9yZGVycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/Final Project/RestaurantSide/RestaurantSideApplication/Views/Restaurant/DisplayOrders.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxEaXNwbGF5T3JkZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -37,6 +45,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [F:/Final Project/RestaurantSide/RestaurantSideApplication/Views/Restaurant/Logged.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxMb2dnZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Final Project/RestaurantSide/RestaurantSideApplication/Views/Restaurant/PreparingOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQcmVwYXJpbmdPcmRlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/Final Project/RestaurantSide/RestaurantSideApplication/Views/Shared/Error.cshtml]

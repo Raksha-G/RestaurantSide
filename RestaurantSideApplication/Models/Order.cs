@@ -21,13 +21,13 @@ namespace RestaurantSideApplication.Models
 
         public int OrderNo { get; set; }
 
-
+        public string Status { get; set; }
         public Order()
         {
 
         }
       
-        public Order(int inVoiceNo, string customerName, string foodItem, int quantity, int price, DateTime orderTime, int orderNo)
+        public Order(int inVoiceNo, string customerName, string foodItem, int quantity, int price, DateTime orderTime, int orderNo,string status)
         {
 
             InVoiceNo = inVoiceNo;
@@ -37,6 +37,7 @@ namespace RestaurantSideApplication.Models
             Price = price;
             OrderTime = orderTime;
             OrderNo = orderNo;
+            Status = status;
         }
     }
 }
