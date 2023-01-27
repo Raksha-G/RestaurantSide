@@ -66,7 +66,7 @@ namespace RestaurantSideApplication.Controllers
             conn.Close();
             _logger.LogInformation(String.Format("A new Account Created with UserName {0} and RestaurantName {1}", signup.UserName, signup.RestaurantName));
 
-            SqlCommand cmd1 = new SqlCommand(String.Format("insert into Restaurants values('{0}','{1}')", signup.RestaurantName, signup.RestaurantImage), conn);
+            SqlCommand cmd1 = new SqlCommand(String.Format("insert into Restaurants values('{0}','{1}','{2}')", signup.RestaurantName, signup.RestaurantImage,signup.Cuisine), conn);
             conn.Open();
             cmd1.ExecuteNonQuery();
             conn.Close();

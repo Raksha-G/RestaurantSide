@@ -16,16 +16,19 @@ namespace RestaurantSideApplication.Models
 
         public string RestaurantImage { get; set; }
 
+        public string Cuisine { get; set; }
+
         public SignUp()
         {
 
         }
-        public SignUp(string restaurantName, string userName, string password, string restaurantImage)
+        public SignUp(string restaurantName, string userName, string password, string restaurantImage, string cuisine)
         {
             RestaurantName = restaurantName;
             UserName = userName;
             Password = password;
             RestaurantImage = restaurantImage;
+            Cuisine = cuisine;
         }
     }
 }
