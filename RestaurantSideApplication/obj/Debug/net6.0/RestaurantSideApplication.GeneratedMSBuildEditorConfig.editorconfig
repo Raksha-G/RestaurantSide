@@ -23,6 +23,7 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxBZGRGb29kSXRlbS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+<<<<<<< HEAD
 [C:/Users/raksha_ganyarpawar/source/repos/JustEat/RestaurantSide/RestaurantSideApplication/Views/Restaurant/CancelOrder.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxDYW5jZWxPcmRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -32,6 +33,17 @@ build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxEZWxpdmVyYWJs
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/raksha_ganyarpawar/source/repos/JustEat/RestaurantSide/RestaurantSideApplication/Views/Restaurant/DisplayOrders.cshtml]
+=======
+[F:/Final Project/RestaurantSide/RestaurantSideApplication/Views/Restaurant/CancelOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxDYW5jZWxPcmRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Final Project/RestaurantSide/RestaurantSideApplication/Views/Restaurant/DeliverableOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxEZWxpdmVyYWJsZU9yZGVycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Final Project/RestaurantSide/RestaurantSideApplication/Views/Restaurant/DisplayOrders.cshtml]
+>>>>>>> ae6aee075de1bb5e34cc0d02a79e28fc953ee37a
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxEaXNwbGF5T3JkZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
@@ -47,11 +59,19 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxMb2dnZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+<<<<<<< HEAD
 [C:/Users/raksha_ganyarpawar/source/repos/JustEat/RestaurantSide/RestaurantSideApplication/Views/Restaurant/PreparingOrders.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQcmVwYXJpbmdPcmRlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/raksha_ganyarpawar/source/repos/JustEat/RestaurantSide/RestaurantSideApplication/Views/Shared/Error.cshtml]
+=======
+[F:/Final Project/RestaurantSide/RestaurantSideApplication/Views/Restaurant/PreparingOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQcmVwYXJpbmdPcmRlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Final Project/RestaurantSide/RestaurantSideApplication/Views/Shared/Error.cshtml]
+>>>>>>> ae6aee075de1bb5e34cc0d02a79e28fc953ee37a
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
