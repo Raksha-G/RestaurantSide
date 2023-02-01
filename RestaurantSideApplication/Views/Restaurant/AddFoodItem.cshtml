@@ -30,7 +30,11 @@
             </div>
 
              <div class="mb-3">
-                <input value="" asp-for="Type" placeholder="Veg or NonVeg" class="form-control" style="width:100%"/>
+                 <select value="" asp-for="Type" class="" style="width:100%; height:35px; padding-left:10px; border-radius:4px;">
+                     <option>Veg</option>
+                     <option>NonVeg</option>
+                 </select>
+                @*<input value="" asp-for="Type" placeholder="Veg or NonVeg" class="form-control" style="width:100%"/>*@
             </div>
 
             @*<div class="mb-3">

@@ -133,7 +133,7 @@ namespace RestaurantSideApplication.Controllers
 
 
             SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
-            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}'", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName")), conn);
+            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}' order by PO.OrderTime desc", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName")), conn);
             conn.Open();
             SqlDataReader sr = cmd.ExecuteReader();
             List<Order> orderDetails = new List<Order>();
@@ -221,7 +221,7 @@ namespace RestaurantSideApplication.Controllers
                 return RedirectToAction("Login");
             }
             SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
-            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}'", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName")), conn);
+            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}' order by PO.OrderTime desc", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName")), conn);
             conn.Open();
             SqlDataReader sr = cmd.ExecuteReader();
             List<Order> orderDetails = new List<Order>();
@@ -257,7 +257,7 @@ namespace RestaurantSideApplication.Controllers
                 return RedirectToAction("Login");
             }
             SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
-            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}'", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName")), conn);
+            SqlCommand cmd = new SqlCommand(String.Format("select * from PlacedOrderDetail PO inner join Restaurants R on R.Restaurant_Id = PO.RestaurantId  where R.Restaurant_Name = '{0}' order by PO.OrderTime desc", _httpContextAccessor.HttpContext.Session.GetString("RestaurantName")), conn);
             conn.Open();
             SqlDataReader sr = cmd.ExecuteReader();
             List<Order> orderDetails = new List<Order>();
@@ -546,12 +546,12 @@ namespace RestaurantSideApplication.Controllers
 
             List<CompletedOrder> completedOrders = new List<CompletedOrder>();
             SqlConnection conn1 = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
-            SqlCommand cmd1 = new SqlCommand(String.Format("select * from CompletedOrder where RestaurantId='{0}'",resId), conn1);
+            SqlCommand cmd1 = new SqlCommand(String.Format("select * from CompletedOrder where RestaurantId='{0}' order by OrderCompletionTime desc",resId), conn1);
             conn1.Open();
             SqlDataReader sr1 = cmd1.ExecuteReader();
             while(sr1.Read())
             {
-                completedOrders.Add(new CompletedOrder((int)sr1["InVoiceNo"],sr1["UserName"].ToString(),sr1["FoodItem"].ToString(),(int)sr1["Quantity"],(int)sr1["Price"],(int)sr1["RestaurantId"],Convert.ToDateTime(sr1["OrderCompletionTime"])));
+                completedOrders.Add(new CompletedOrder((int)sr1["InVoiceNo"],sr1["UserName"].ToString(),sr1["FoodItem"].ToString(),(int)sr1["Quantity"],(int)sr1["Price"],(int)sr1["RestaurantId"],Convert.ToDateTime(sr1["OrderCompletionTime"]),sr1["status"].ToString()));
             }
             conn1.Close();
             return View(completedOrders);

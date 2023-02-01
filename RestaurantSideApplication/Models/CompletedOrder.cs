@@ -25,7 +25,7 @@
             RestaurantId = resId;
             Status = status;
         }
-        public CompletedOrder(int inVoiceNo, string customerName, string foodItem, int quantity, int price, int resId,DateTime date)
+        public CompletedOrder(int inVoiceNo, string customerName, string foodItem, int quantity, int price, int resId,DateTime date,string status)
         {
             InVoiceNo = inVoiceNo;
             CustomerName = customerName;
@@ -34,7 +34,7 @@
             Price = price;
             RestaurantId = resId;
             DeliveredDate= date;
-            
+            Status = status;
         }
     }
 }

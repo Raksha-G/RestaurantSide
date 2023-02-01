@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "History";
 }
-@if(@Model.Count<=10)
+@if(@Model.Count<=11)
 {
     <div class="bg-black" style="height:100vh; padding-top:10px;">
         <div >
@@ -31,6 +31,7 @@
                 <th>Price</th>
                  <th>Address</th>
                 <th>Delivered Time</th>
+                <th></th>
                
         </tr>
     @{
@@ -49,7 +50,8 @@
                 }
 
                         conn.Close();
-            <tr class="text-white">
+                ViewBag.Stat = @obj.Status.ToString();
+                <tr class="text-white">
                 <td>@i</td>
 
                 <td>@obj.InVoiceNo</td>
@@ -65,7 +67,14 @@
                 <td>@obj.DeliveredDate</td>
                 
                         
-                <td class="text-success" style="font-weight:500;">Delivered</td>
+                @if (ViewBag.Stat == "Delivered")
+                    {
+                        <td class="text-success" style="font-weight:500;">Delivered</td>
+                    }
+                    else
+                    {
+                        <td class="text-danger" style="font-weight:500;">Cancelled</td>
+                    }
             </tr>
             i++;
         }   
@@ -101,6 +110,7 @@ else
                 <th>Price</th>
                  <th>Address</th>
                 <th>Delivered Time</th>
+                <th></th>
                
         </tr>
     @{
@@ -119,7 +129,8 @@ else
                 }
 
                         conn.Close();
-            <tr class="text-white">
+                ViewBag.Stat = @obj.Status.ToString();
+                <tr class="text-white">
                 <td>@i</td>
 
                 <td>@obj.InVoiceNo</td>
@@ -134,8 +145,16 @@ else
                 <td>@ViewBag.Add</td>
                 <td>@obj.DeliveredDate</td>
                 
-                        
-                <td class="text-success" style="font-weight:500;">Delivered</td>
+                    @if (ViewBag.Stat == "Delivered")
+                    {
+                        <td class="text-success" style="font-weight:500;">Delivered</td>
+                    }
+                    else
+                    {
+                        <td class="text-danger" style="font-weight:500;">Cancelled</td>
+                    }
+                       
+                    
             </tr>
             i++;
         }   
