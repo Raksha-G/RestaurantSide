@@ -1,34 +1,44 @@
 ﻿@using System.Data.SqlClient
 @model List<Order>
-
+@{
+    int r = 0;
+    int p = 0;
+    int d = 0;
+    foreach (var i in @Model)
+    {
+        if (i.Status == "Placed")
+        {
+            r += 1;
+        } else if (i.Status == "Accepted")
+        {
+            p += 1;
+        } else if (i.Status == "Prepared")
+        {
+            d += 1;
+        }
+    }
+}
 <div>
    
 
-@if(Model.Count<=8)
+@if(Model.Count<=10)
 {
-    <div class="bg-black" style="height:100vh; padding-top:10px;">
-         <div class="d-flex justify-content-center">
-            <a style="margin:15px;" asp-controller="Restaurant" asp-action="DisplayOrders" class="btn btn-secondary ">Received</a>
-            <a style="margin:15px;" asp-controller="Restaurant" asp-action="PreparingOrders" class="btn btn-secondary">Preparing Food</a>
-            <a style="margin:15px;" class="btn btn-primary">Deliverable</a>
+    <div class="" style="height:100vh; padding-top:10px; background-color:antiquewhite;">
+          <div class="d-flex justify-content-center">
+            <a style="font-size:13px; width: 135px; margin:8px; border-radius:100px; border-width:2px;"  asp-controller="Restaurant" asp-action="DisplayOrders" class="btn btn-outline-primary ">Received (@r)</a>
+            <a style="font-size:13px; width: 135px; margin:8px; border-radius:100px; border-width:2px;" asp-controller="Restaurant" asp-action="PreparingOrders" class="btn btn-outline-primary">Preparing Food (@p)</a>
+            <a style="font-size:13px; width: 135px; margin:8px; border-radius:100px;" asp-controller="Restaurant" asp-action="DeliverableOrders" class="btn btn-primary">Deliverable (@d)</a>
         </div>
-        <div >
-    <h2 style="text-align:center;" class="text-success">
-       Orders Ready to Deliver... On the Way to Customer
-    </h2>
-@*   <table>
-        
-        <tr><td><p style="font-size:15px">@Html.ActionLink("Log Out","Login")</p></td></tr>
-      <tr><td><p style="font-size:15px">@Html.ActionLink("Add Food Item","AddFoodItem")</p></td></tr>
       
-        
-    </table>*@
-</div> 
-<br/>
-@*@using(@Html.BeginForm("CompletedOrder","Restaurant",FormMethod.Post))
-{*@
+        <div>
+            <h2 style="text-align:center; font-size:23px; padding:7px;" class="text-primary">
+               Ready to Deliver Orders
+            </h2>
+            </div>
+            
+
  <table  class="table table-striped ">
-        <tr class="text-white">
+        <tr class="text-black">
                 <th>Order Id</th>
                 <th>InVoiceNo</th>
                 <th>UserName</th>
@@ -37,8 +47,8 @@
                 <th>Price</th>
                 <th>Address</th>
                 <th>Order Time</th>
-                <th>  </th>
-               
+                <th>Delivered</th>
+           
                 
         </tr>
     @{
@@ -63,8 +73,8 @@
 
                         conn.Close();
             
-            <tr class="text-white">
-                <td>@i</td>
+            <tr class="text-black">
+                <td>@obj.OrderNo</td>
 
                 <td>@obj.InVoiceNo</td>
               
@@ -79,40 +89,42 @@
                 <td>@obj.OrderTime</td>
                 
                  
-                <td><a asp-controller="Restaurant" asp-action="CompletedOrder" asp-route-id = "@obj.OrderNo" class="btn btn-primary">Delivered</a></td>
+                <td class="text-center"><a asp-controller="Restaurant" asp-action="CompletedOrder" asp-route-id = "@obj.OrderNo" class=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bag-check-fill text-success" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+</svg></a></td>
+               
                 
             </tr>
             i++;
         }   
  </table>
-
-    </div>
+            @if (d == 0)
+            {
+                <div align="center" style="align-content:center;align-items:center;justify-content:center;margin-top:100px">
+    <h4 style="color:#535665;font-size: 20px;font-weight: 600;">No Orders to Deliver!</h4>
+        <p style="color:#7e808c">Please wait some time <br/> check preparing orders</p>
+        </div>
+            }
+        </div>
 }
 else
 {
-    <div class="bg-black" style="padding-bottom:25px; padding-top:10px;">
+    <div style="padding-bottom:25px; padding-top:10px; background-color:antiquewhite;">
         <div class="d-flex justify-content-center">
-            <a style="margin:15px;" asp-controller="Restaurant" asp-action="DisplayOrders" class="btn btn-secondary ">Received</a>
-            <a style="margin:15px;" asp-controller="Restaurant" asp-action="PreparingOrders" class="btn btn-secondary">Preparing Food</a>
-            <a style="margin:15px;" class="btn btn-primary">Deliverable</a>
+            <a style="font-size:13px; width: 135px; margin:8px; border-radius:100px; border-width:2px;"  asp-controller="Restaurant" asp-action="DisplayOrders" class="btn btn-outline-primary ">Received (@r)</a>
+            <a style="font-size:13px; width: 135px; margin:8px; border-radius:100px; border-width:2px;" asp-controller="Restaurant" asp-action="PreparingOrders" class="btn btn-outline-primary">Preparing Food (@p)</a>
+            <a style="font-size:13px; width: 135px; margin:8px; border-radius:100px;" asp-controller="Restaurant" asp-action="DeliverableOrders" class="btn btn-primary">Deliverable (@d)</a>
         </div>
-        <div >
-    <h2 style="text-align:center;" class="text-success">
-       Orders Ready to Deliver... On the Way to Customer
-    </h2>
-@*   <table>
-        
-        <tr><td><p style="font-size:15px">@Html.ActionLink("Log Out","Login")</p></td></tr>
-      <tr><td><p style="font-size:15px">@Html.ActionLink("Add Food Item","AddFoodItem")</p></td></tr>
       
-        
-    </table>*@
-</div> 
-<br/>
-@*@using(@Html.BeginForm("CompletedOrder","Restaurant",FormMethod.Post))
-{*@
+        <div>
+            <h2 style="text-align:center; font-size:23px; padding:7px;" class="text-primary">
+               Ready to Deliver Orders
+            </h2>
+            </div>
+            
+
  <table  class="table table-striped ">
-        <tr class="text-white">
+        <tr class="text-black">
                 <th>Order Id</th>
                 <th>InVoiceNo</th>
                 <th>UserName</th>
@@ -121,8 +133,8 @@ else
                 <th>Price</th>
                 <th>Address</th>
                 <th>Order Time</th>
-                <th>  </th>
-               
+                <th>Delivered</th>
+           
                 
         </tr>
     @{
@@ -147,8 +159,8 @@ else
 
                         conn.Close();
             
-            <tr class="text-white">
-                <td>@i</td>
+            <tr class="text-black">
+                <td>@obj.OrderNo</td>
 
                 <td>@obj.InVoiceNo</td>
               
@@ -163,19 +175,36 @@ else
                 <td>@obj.OrderTime</td>
                 
                  
-                <td><a asp-controller="Restaurant" asp-action="CompletedOrder" asp-route-id = "@obj.OrderNo" class="btn btn-primary">Delivered</a></td>
+                <td class="text-center"><a asp-controller="Restaurant" asp-action="CompletedOrder" asp-route-id = "@obj.OrderNo" class=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bag-check-fill text-success" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+</svg></a></td>
+               
                 
             </tr>
             i++;
         }   
  </table>
-
-
+            @if (d == 0)
+            {
+                <div align="center" style="align-content:center;align-items:center;justify-content:center;margin-top:100px">
+    <h4 style="color:#535665;font-size: 20px;font-weight: 600;">No Orders to Deliver!</h4>
+        <p style="color:#7e808c">Please wait some time <br/> check preparing orders</p>
+        </div>
+            }
 
     </div>
 }
 
 </div>
+
+
+
+
+
+
+
+
+ 
 
 
 

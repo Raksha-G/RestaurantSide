@@ -5,11 +5,11 @@
 }
 @if(@Model.Count<=11)
 {
-    <div class="bg-black" style="height:100vh; padding-top:10px;">
+    <div class="" style="height:100vh; padding-top:10px; background-color:antiquewhite;">
         <div >
-    <h2 style="text-align:center;" class="text-success">
-        Completed Orders
-    </h2>
+    <h2 style="text-align:center; font-size:23px; padding:7px;" class="text-primary">
+               Completed Orders
+            </h2>
 @*   <table>
         
         <tr><td><p style="font-size:15px">@Html.ActionLink("Log Out","Login")</p></td></tr>
@@ -22,7 +22,7 @@
 @*@using(@Html.BeginForm("CompletedOrder","Restaurant",FormMethod.Post))
 {*@
  <table  class="table table-striped ">
-        <tr class="text-white">
+        <tr class="text-black">
                 <th>Order Id</th>
                 <th>InVoiceNo</th>
                 <th>UserName</th>
@@ -31,7 +31,7 @@
                 <th>Price</th>
                  <th>Address</th>
                 <th>Delivered Time</th>
-                <th></th>
+                <th>Status</th>
                
         </tr>
     @{
@@ -51,7 +51,7 @@
 
                         conn.Close();
                 ViewBag.Stat = @obj.Status.ToString();
-                <tr class="text-white">
+                <tr class="text-black">
                 <td>@i</td>
 
                 <td>@obj.InVoiceNo</td>
