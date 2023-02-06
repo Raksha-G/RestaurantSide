@@ -170,10 +170,13 @@ namespace RestaurantSideApplication.Controllers
                 completedOrders.Add(compOrder);
             }
             conn.Close();
+            DateTime utc = DateTime.UtcNow;
 
+            DateTime temp = new DateTime(utc.Ticks, DateTimeKind.Utc);
+            DateTime ist = TimeZoneInfo.ConvertTimeFromUtc(temp, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
             foreach (var obj in completedOrders)
             {
-                SqlCommand cmd1 = new SqlCommand(String.Format("insert into CompletedOrder values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", obj.InVoiceNo, obj.CustomerName, obj.FoodItem, obj.Quantity, obj.Price,DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),obj.RestaurantId,"Delivered"), conn);
+                SqlCommand cmd1 = new SqlCommand(String.Format("insert into CompletedOrder values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", obj.InVoiceNo, obj.CustomerName, obj.FoodItem, obj.Quantity, obj.Price,ist.ToString("yyyy-MM-dd HH:mm:ss"),obj.RestaurantId,"Delivered"), conn);
                 conn.Open();
                 _logger.LogDebug("Order Delivered to user {0}, Item {1} with Invoice No {2}", obj.CustomerName, obj.FoodItem, obj.InVoiceNo);
                 cmd1.ExecuteNonQuery();
