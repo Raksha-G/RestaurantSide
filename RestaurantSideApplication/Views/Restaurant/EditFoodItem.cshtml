@@ -15,19 +15,19 @@
             <br />
 
             <div class="mb-3">
-               <input value="@Model.FoodItemName" asp-for="FoodItemName" placeholder="FoodItem Name" class="form-control" style="width:100%"/>
+               <input required value="@Model.FoodItemName" asp-for="FoodItemName" placeholder="FoodItem Name*" class="form-control" style="width:100%"/>
             </div>
 
              <div class="mb-3">
-                <input value="@Model.FoodItemImage" asp-for="FoodItemImage" placeholder="FoodItem Image" class="form-control" style="width:100%"/>
+                <input required value="@Model.FoodItemImage" asp-for="FoodItemImage" placeholder="FoodItem Image*" class="form-control" style="width:100%"/>
             </div> 
 
              <div class="mb-3">
-                <input value="@Model.Price" asp-for="Price" placeholder="Price" class="form-control" style="width:100%"/>
+                <input required value="@Model.Price" asp-for="Price" placeholder="Price*" class="form-control" style="width:100%"/>
             </div>
 
             <div class="mb-3">
-                <select value="@Model.Type" asp-for="Type" class="" style="width:100%; height:35px; padding-left:10px; border-radius:4px;">
+                <select required value="@Model.Type" asp-for="Type" class="" style="width:100%; height:35px; padding-left:10px; border-radius:4px;">
                      <option>Veg</option>
                      <option>NonVeg</option>
                  </select>

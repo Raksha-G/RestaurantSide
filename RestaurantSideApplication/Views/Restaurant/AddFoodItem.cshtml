@@ -18,19 +18,19 @@
             <br />
 
             <div class="mb-3">
-               <input value="" asp-for="FoodItemName" placeholder="FoodItem Name" class="form-control" style="width:100%"/>
+               <input@* value=""*@ required asp-for="FoodItemName" placeholder="FoodItem Name*" class="form-control" style="width:100%"/>
             </div>
 
              <div class="mb-3">
-                <input value="" asp-for="FoodItemImage" placeholder="FoodItem Image" class="form-control" style="width:100%"/>
+                <input value="" required asp-for="FoodItemImage" placeholder="FoodItem Image*" class="form-control" style="width:100%"/>
             </div> 
 
              <div class="mb-3">
-                <input value="" asp-for="Price" placeholder="Price" class="form-control" style="width:100%"/>
+                <input value="" required asp-for="Price" placeholder="Price*" class="form-control" style="width:100%"/>
             </div>
 
              <div class="mb-3">
-                 <select value="" asp-for="Type" class="" style="width:100%; height:35px; padding-left:10px; border-radius:4px;">
+                 <select required value="" asp-for="Type" class="" style="width:100%; height:35px; padding-left:10px; border-radius:4px;">
                      <option>Veg</option>
                      <option>NonVeg</option>
                  </select>
