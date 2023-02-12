@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestaurantSideApplication.Models;
 using System.Data.SqlClient;
+using System.Net;
+using System.Net.Mail;
 
 namespace RestaurantSideApplication.Controllers
 {
@@ -25,7 +27,7 @@ namespace RestaurantSideApplication.Controllers
             SqlDataReader sr = cmd.ExecuteReader();
             while (sr.Read())
             {
-                LoginDetails user = new LoginDetails(sr["RestaurantName"].ToString(), sr["UserName"].ToString(), sr["Password"].ToString());
+                LoginDetails user = new LoginDetails(sr["RestaurantName"].ToString(), sr["UserName"].ToString(),sr["Email"].ToString(), sr["Password"].ToString());
                 Users.Add(user);
             }
         }
@@ -60,7 +62,7 @@ namespace RestaurantSideApplication.Controllers
             }
             SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
             
-            SqlCommand cmd = new SqlCommand(String.Format("insert into RestaurantLoginDetails values('{0}','{1}','{2}')", signup.RestaurantName, signup.UserName, signup.Password), conn);
+            SqlCommand cmd = new SqlCommand(String.Format("insert into RestaurantLoginDetails values('{0}','{1}','{2}','{3}')", signup.RestaurantName, signup.UserName, signup.Password,signup.Email), conn);
             conn.Open();
             cmd.ExecuteNonQuery();
             conn.Close();
@@ -181,6 +183,76 @@ namespace RestaurantSideApplication.Controllers
                 _logger.LogDebug("Order Delivered to user {0}, Item {1} with Invoice No {2}", obj.CustomerName, obj.FoodItem, obj.InVoiceNo);
                 cmd1.ExecuteNonQuery();
                 conn.Close();
+
+                SqlConnection conn2 = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
+                SqlCommand cmd3 = new SqlCommand(string.Format("select Restaurant_Name from restaurants where Restaurant_Id='{0}'", obj.RestaurantId), conn2);
+                conn2.Open();
+                string RestaurantName = "";
+                SqlDataReader sr2 = cmd3.ExecuteReader();
+                while (sr2.Read())
+                {
+                    RestaurantName = sr2["Restaurant_Name"].ToString();
+                }
+
+                conn2.Close();
+
+                SqlConnection conn3 = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
+                SqlCommand cmd5 = new SqlCommand(string.Format("select Email from Users where UserName='{0}'", obj.CustomerName), conn3);
+                conn3.Open();
+                SqlDataReader sr3 = cmd5.ExecuteReader();
+                string userMail = "";
+                while (sr3.Read())
+                {
+                    userMail = sr3["Email"].ToString();
+                }
+                conn3.Close();
+                
+
+                SqlCommand cmd7 = new SqlCommand(string.Format("select * from Orders where InVoiceNo ='{0}'", obj.InVoiceNo), conn3);
+                conn3.Open();
+                SqlDataReader sr5 = cmd7.ExecuteReader();
+                string address = "";
+                string city = "";
+                string state = "";
+                string zipcode = "";
+                string orderTime = "";
+                while (sr5.Read())
+                {
+                    orderTime = sr5["OrderTime"].ToString();
+                    address = sr5["Address"].ToString();
+                    city = sr5["City"].ToString();
+                    state = sr5["State"].ToString();
+                    zipcode = sr5["ZipCode"].ToString();
+                }
+                conn3.Close();
+                string fromMail = "update.justeat@gmail.com";
+                string fromPassword = "vswveeeasgbytbyi";
+
+                string fp = string.Format("<h2 style=\"color:orange; text-align:center; font-size:25px;\">JustEat</h2><hr/><p>Dear <span style=\"font-weight:bold;\">{0}</span>,</p><p>Greetings from JustEat<br/>Your order was delivered to your address. Thanks for choosing JustEat</p><p>Your Order Summary:</p><p>Invoice No: <span style=\"font-weight:bold;\">{1}</span></p><p>Restaurant: <span style=\"font-weight:bold;\">{2}</span></p><p>Order Placed at: <span style=\"font-weight:bold;\">{3}</span></p><p>Order Delivered at: <span style=\"font-weight:bold;\">{4}</span></p><p>Order Status: <span style=\"font-weight:bold; color:#3c9961;\"> Delivered</span></p><p>Delivery To:</p><p><span style=\"font-weight:bold; text-transform: uppercase;\">{5}</span></p><p>{6}, {7}<br/> {8} {9}, India</p> </body></html>", obj.CustomerName, obj.InVoiceNo, RestaurantName, orderTime, ist.ToString("dd-MM-yyyy HH:mm:ss"), obj.CustomerName, address, city, state,zipcode);
+                string lp1 = "<table style=\"border-collapse: collapse; width:65vw;\"><tr ><th style=\"background: #eee; border: 1px solid #777; padding: 0.5rem; text-align: center;\">Item Name</th><th style=\"background: #eee; border: 1px solid #777; padding: 0.5rem; text-align: center;\">Quantity</th><th style=\"background: #eee; border: 1px solid #777; padding: 0.5rem; text-align: center;\">Price</th></tr>";
+                int totalPrice = obj.Price*obj.Quantity;
+                
+                    lp1 += string.Format("<tr ><td style=\" border: 1px solid #777; padding: 0.5rem; text-align: center;\">{0}</td><td style=\" border: 1px solid #777; padding: 0.5rem; text-align: center;\">{1}</td><td style=\" border: 1px solid #777; padding: 0.5rem; text-align: center;\">₹ {2}</td></tr>", obj.FoodItem,obj.Quantity,obj.Price);
+                
+                string lp2 = "</table>";
+                string lp3 = string.Format("<p style=\"width:65vw; color:#3c9961; text-align:end; background-color:#f0f5f1; padding:7px; font-weight:bold;\">Order Total :  <span style=\"padding-left:10px;\">₹ {0}</span></p><hr/><p style=\"padding:10px;\">Hope you have a good experience with us. Thankyou and have a nice day</p><hr/>", totalPrice);
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress(fromMail);
+                //string n = "j\"fdf\"";
+                message.Subject = String.Format("Your JustEat Order #{0} was delivered superfast", obj.InVoiceNo);
+                message.To.Add(new MailAddress(userMail));
+                message.Body = string.Format("<html><body>{0}{1}{2}{3} </body></html>", fp, lp1, lp2, lp3);
+                message.IsBodyHtml = true;
+
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(fromMail, fromPassword),
+                    EnableSsl = true,
+                };
+
+                smtpClient.Send(message);
+
 
                 SqlCommand cmd2 = new SqlCommand(String.Format("delete from PlacedOrderDetail where OrderNo = '{0}'", Id), conn);
                 conn.Open();
@@ -323,7 +395,10 @@ namespace RestaurantSideApplication.Controllers
                 completedOrders.Add(compOrder);
             }
             conn.Close();
+            DateTime utc = DateTime.UtcNow;
 
+            DateTime temp = new DateTime(utc.Ticks, DateTimeKind.Utc);
+            DateTime ist = TimeZoneInfo.ConvertTimeFromUtc(temp, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
             foreach (var obj in completedOrders)
             {
                 SqlCommand cmd1 = new SqlCommand(String.Format("insert into CompletedOrder values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", obj.InVoiceNo, obj.CustomerName, obj.FoodItem, obj.Quantity, obj.Price, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), obj.RestaurantId, "Cancelled"), conn);
@@ -331,6 +406,78 @@ namespace RestaurantSideApplication.Controllers
                 _logger.LogDebug("Order Delivered to user {0}, Item {1} with Invoice No {2}", obj.CustomerName, obj.FoodItem, obj.InVoiceNo);
                 cmd1.ExecuteNonQuery();
                 conn.Close();
+
+                SqlConnection conn2 = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
+                SqlCommand cmd3 = new SqlCommand(string.Format("select Restaurant_Name from restaurants where Restaurant_Id='{0}'", obj.RestaurantId), conn2);
+                conn2.Open();
+                string RestaurantName = "";
+                SqlDataReader sr2 = cmd3.ExecuteReader();
+                while (sr2.Read())
+                {
+                    RestaurantName = sr2["Restaurant_Name"].ToString();
+                }
+
+                conn2.Close();
+
+                SqlConnection conn3 = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
+                SqlCommand cmd5 = new SqlCommand(string.Format("select Email from Users where UserName='{0}'", obj.CustomerName), conn3);
+                conn3.Open();
+                SqlDataReader sr3 = cmd5.ExecuteReader();
+                string userMail = "";
+                while (sr3.Read())
+                {
+                    userMail = sr3["Email"].ToString();
+                }
+                conn3.Close();
+
+
+                SqlCommand cmd7 = new SqlCommand(string.Format("select * from Orders where InVoiceNo ='{0}'", obj.InVoiceNo), conn3);
+                conn3.Open();
+                SqlDataReader sr5 = cmd7.ExecuteReader();
+                string address = "";
+                string city = "";
+                string state = "";
+                string zipcode = "";
+                string orderTime = "";
+                while (sr5.Read())
+                {
+                    orderTime = sr5["OrderTime"].ToString();
+                    address = sr5["Address"].ToString();
+                    city = sr5["City"].ToString();
+                    state = sr5["State"].ToString();
+                    zipcode = sr5["ZipCode"].ToString();
+                }
+                conn3.Close();
+                string fromMail = "update.justeat@gmail.com";
+                string fromPassword = "vswveeeasgbytbyi";
+
+                string fp = string.Format("<h2 style=\"color:orange; text-align:center; font-size:25px;\">JustEat</h2><hr/><p>Dear <span style=\"font-weight:bold;\">{0}</span>,</p><p>We regret to inform you that due to some unavoidable circumstances your order was cancelled by <span style=\"font-weight:bold;\">{1}</span>.</p><p>Your Order Summary:</p><p>Invoice No: <span style=\"font-weight:bold;\">{2}</span></p><p>Restaurant: <span style=\"font-weight:bold;\">{3}</span></p><p>Order Placed at: <span style=\"font-weight:bold;\">{4}</span></p><p>Order Cancelled at: <span style=\"font-weight:bold;\">{5}</span></p><p>Order Status: <span style=\"font-weight:bold; color:red;\"> Cancelled</span></p><p>Delivery To:</p><p><span style=\"font-weight:bold; text-transform: uppercase;\">{6}</span></p><p>{7}, {8}<br/> {9} {10}, India</p> </body></html>", obj.CustomerName,RestaurantName, obj.InVoiceNo, RestaurantName, orderTime, ist.ToString("dd-MM-yyyy HH:mm:ss"), obj.CustomerName, address, city, state, zipcode);
+                string lp1 = "<table style=\"border-collapse: collapse; width:65vw;\"><tr ><th style=\"background: #eee; border: 1px solid #777; padding: 0.5rem; text-align: center;\">Item Name</th><th style=\"background: #eee; border: 1px solid #777; padding: 0.5rem; text-align: center;\">Quantity</th><th style=\"background: #eee; border: 1px solid #777; padding: 0.5rem; text-align: center;\">Price</th></tr>";
+                int totalPrice = obj.Price * obj.Quantity;
+
+                lp1 += string.Format("<tr ><td style=\" border: 1px solid #777; padding: 0.5rem; text-align: center;\">{0}</td><td style=\" border: 1px solid #777; padding: 0.5rem; text-align: center;\">{1}</td><td style=\" border: 1px solid #777; padding: 0.5rem; text-align: center;\">₹ {2}</td></tr>", obj.FoodItem, obj.Quantity, obj.Price);
+
+                string lp2 = "</table>";
+                string lp3 = string.Format("<p style=\"width:65vw; color:#3c9961; text-align:end; background-color:#f0f5f1; padding:7px; font-weight:bold;\">Order Total :  <span style=\"padding-left:10px;\">₹ {0}</span></p><hr/><p style=\"padding:10px;\">If you already paid then your amount will be refunded within 24 hours. Thankyou for choosing JustEat and have a nice day</p><hr/>", totalPrice);
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress(fromMail);
+                //string n = "j\"fdf\"";
+                message.Subject = String.Format("Your JustEat Order #{0} was cancelled", obj.InVoiceNo);
+                message.To.Add(new MailAddress(userMail));
+                message.Body = string.Format("<html><body>{0}{1}{2}{3} </body></html>", fp, lp1, lp2, lp3);
+                message.IsBodyHtml = true;
+
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(fromMail, fromPassword),
+                    EnableSsl = true,
+                };
+
+                smtpClient.Send(message);
+
+
+
 
                 SqlCommand cmd2 = new SqlCommand(String.Format("delete from PlacedOrderDetail where OrderNo = '{0}'", Id), conn);
                 conn.Open();

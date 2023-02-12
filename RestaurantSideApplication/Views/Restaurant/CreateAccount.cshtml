@@ -11,7 +11,7 @@
 
 
 <form method="post">
-    <div class="border p-3 container  align-self-center " style="width:40%">
+    <div class="border p-3 container  align-self-center" style="width:40%">
 
         <div class="p-3 mt-4 container align-self-center">
             @if(ViewBag.UserName == "UserName already Exist")
@@ -37,6 +37,11 @@
              <div class="mb-3">
                 @*<label asp-for="Email"></label>*@
                 <input required asp-for="UserName" placeholder="UserName*" class="form-control" style="width:100%"/>
+            </div>
+
+             <div class="mb-3">
+                @*<label asp-for="Email"></label>*@
+                <input required asp-for="Email" placeholder="Email*" class="form-control" style="width:100%"/>
             </div>
 
              <div class="mb-3">

@@ -10,7 +10,8 @@ namespace RestaurantSideApplication.Models
 
         [Required]
         public string UserName { get; set; }
-
+        [Required]
+        public string Email { get; set; }
         [Required]
         public string Password { get; set; }
 
@@ -22,10 +23,11 @@ namespace RestaurantSideApplication.Models
         {
 
         }
-        public SignUp(string restaurantName, string userName, string password, string restaurantImage, string cuisine)
+        public SignUp(string restaurantName, string userName,string email, string password, string restaurantImage, string cuisine)
         {
             RestaurantName = restaurantName;
             UserName = userName;
+            Email = email;
             Password = password;
             RestaurantImage = restaurantImage;
             Cuisine = cuisine;
