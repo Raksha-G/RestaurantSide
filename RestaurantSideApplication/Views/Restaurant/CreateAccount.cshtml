@@ -10,7 +10,7 @@
 
 
 
-<form method="post">
+<form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="border p-3 container  align-self-center" style="width:40%">
 
         <div class="p-3 mt-4 container align-self-center">
@@ -52,6 +52,11 @@
             <div class="mb-3">
                 @*<label asp-for="Password"></label>*@
                 <input required asp-for="Cuisine" placeholder="Cuisine*" class="form-control" style="width:100%"/>
+            </div>
+
+             <div class="mb-3">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" accept="image/*" />
             </div>
 
              <div class="mb-3">

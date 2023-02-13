@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestaurantSideApplication.Models
 {
@@ -19,11 +21,15 @@ namespace RestaurantSideApplication.Models
 
         public string Cuisine { get; set; }
 
+        [NotMapped]
+        [DisplayName("Upload File")]
+        public IFormFile ImageFile { get; set; }
+
         public SignUp()
         {
 
         }
-        public SignUp(string restaurantName, string userName,string email, string password, string restaurantImage, string cuisine)
+        public SignUp(string restaurantName, string userName,string email, string password, string restaurantImage, string cuisine, IFormFile imageFile)
         {
             RestaurantName = restaurantName;
             UserName = userName;
@@ -31,6 +37,7 @@ namespace RestaurantSideApplication.Models
             Password = password;
             RestaurantImage = restaurantImage;
             Cuisine = cuisine;
+            ImageFile = imageFile;
         }
     }
 }

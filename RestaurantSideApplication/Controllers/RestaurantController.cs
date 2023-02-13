@@ -116,6 +116,7 @@ namespace RestaurantSideApplication.Controllers
                     _httpContextAccessor.HttpContext.Session.SetString("UserName", login.UserName);
                     _logger.LogInformation(String.Format("User {0} logged into the Restaurant {1}", login.UserName, login.RestaurantName));
 
+                    TempData["success"] = "Logged In Successfully";
                     return RedirectToAction("DisplayOrders");
                 }
             }
@@ -147,6 +148,8 @@ namespace RestaurantSideApplication.Controllers
 
             conn.Close();
 
+
+            TempData["success"] = "You have " + orderDetails.Count() + " new orders."; 
 
             return View("DisplayOrders",orderDetails);
         }
@@ -755,6 +758,53 @@ namespace RestaurantSideApplication.Controllers
                 return View("Logged");
 
         }*/
+
+
+
+        public IActionResult Create()
+        {
+            return View("CreateAccount");
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("RestaurantName,UserName,Email,Password,RestaurantImage,Cuisine,ImageFile")] SignUp signup)
+        {
+
+            if (ModelState.IsValid)
+            {
+                //Save image to wwwroot/image
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string wwwRootPath2 = "";
+                string fileName = Path.GetFileNameWithoutExtension(signup.ImageFile.FileName);
+                string extension = Path.GetExtension(signup.ImageFile.FileName);
+                signup.RestaurantImage = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                   signup.ImageFile.CopyTo(fileStream);
+                }
+                //Insert record
+                /*  _context.Add(imageModel);
+                  await _context.SaveChangesAsync();*/
+                SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
+
+                SqlCommand cmd = new SqlCommand(String.Format("insert into RestaurantLoginDetails values('{0}','{1}','{2}','{3}')", signup.RestaurantName, signup.UserName, signup.Password, signup.Email), conn);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                _logger.LogInformation(String.Format("A new Account Created with UserName {0} and RestaurantName {1}", signup.UserName, signup.RestaurantName));
+
+                SqlCommand cmd1 = new SqlCommand(String.Format("insert into Restaurants values('{0}','{1}','{2}')", signup.RestaurantName, signup.RestaurantImage, signup.Cuisine), conn);
+                conn.Open();
+                cmd1.ExecuteNonQuery();
+                conn.Close();
+                return RedirectToAction("Login");
+            }
+            return View("Login");
+        }
 
 
 
