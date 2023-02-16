@@ -8,7 +8,14 @@
 <div class="d-flex justify-content-center">
     <a class="btn btn-primary m-4" asp-controller="Restaurant" asp-action="AddFoodItem">Add New Food Item</a>
 </div>
-<div class="container">
+    @if (Model.Count == 0)
+    {
+        <div align="center" style="align-content:center;align-items:center;justify-content:center;margin-top:100px">
+    <h4 style="color:#535665;font-size: 20px;font-weight: 600;">No Food Items added!</h4>
+        <p style="color:#7e808c">Please add new item <br/> </p>
+        </div>
+    }
+    <div class="container">
     <div class="row">
         @foreach(var i in Model)
         {

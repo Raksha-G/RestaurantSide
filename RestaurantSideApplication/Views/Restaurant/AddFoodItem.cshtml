@@ -9,7 +9,7 @@
 
 <div class="" style="height:100vh; padding-top:20px; background-color:antiquewhite;">
 
-<form method="post" asp-controller="Restaurant" asp-action="AddFoodItem">
+<form method="post" asp-controller="Restaurant" asp-action="AddFoodItem" enctype="multipart/form-data">
     <div class="shadow p-3 mt-4 container  align-self-center " style="width:40%; border:2px solid bisque; background-color:bisque;">
 
         <div class="p-3 mt-4 container align-self-center">
@@ -18,12 +18,12 @@
             <br />
 
             <div class="mb-3">
-               <input@* value=""*@ required asp-for="FoodItemName" placeholder="FoodItem Name*" class="form-control" style="width:100%"/>
+               <input required asp-for="FoodItemName" placeholder="FoodItem Name*" class="form-control" style="width:100%"/>
             </div>
 
-             <div class="mb-3">
+             @*<div class="mb-3">
                 <input value="" required asp-for="FoodItemImage" placeholder="FoodItem Image*" class="form-control" style="width:100%"/>
-            </div> 
+            </div> *@
 
              <div class="mb-3">
                 <input value="" required asp-for="Price" placeholder="Price*" class="form-control" style="width:100%"/>
@@ -36,7 +36,10 @@
                  </select>
                 @*<input value="" asp-for="Type" placeholder="Veg or NonVeg" class="form-control" style="width:100%"/>*@
             </div>
-
+             <div class="mb-3">
+                <label class="text-secondary ml-2" asp-for="ImageFile" class="control-label">Upload Image*</label>
+                <input required class="text-secondary" type="file" asp-for="ImageFile" accept="image/*" />
+            </div>
             @*<div class="mb-3">
                 <input asp-for="ImageFile" accept="image/*" class="form-control" style="width:100%"/>
             </div>*@

@@ -67,8 +67,12 @@ namespace RestaurantSideApplication.Controllers
             cmd.ExecuteNonQuery();
             conn.Close();
             _logger.LogInformation(String.Format("A new Account Created with UserName {0} and RestaurantName {1}", signup.UserName, signup.RestaurantName));
+            byte[] imageData = new byte[signup.ImageFile.Length];
+            signup.ImageFile.OpenReadStream().ReadAsync(imageData, 0, (int)signup.ImageFile.Length);
+            string image = "data:image/jpeg;base64," + System.Convert.ToBase64String(imageData);
+            SqlCommand cmd1 = new SqlCommand(String.Format("insert into Restaurants values('{0}','{1}','{2}')", signup.RestaurantName, image, signup.Cuisine), conn);
 
-            SqlCommand cmd1 = new SqlCommand(String.Format("insert into Restaurants values('{0}','{1}','{2}')", signup.RestaurantName, signup.RestaurantImage,signup.Cuisine), conn);
+            
             conn.Open();
             cmd1.ExecuteNonQuery();
             conn.Close();
@@ -526,7 +530,10 @@ namespace RestaurantSideApplication.Controllers
 
             conn.Close();
 
-            SqlCommand sqlCommand1 = new SqlCommand(String.Format("insert into Food values('{0}','{1}','{2}','{3}','{4}')", foodItem.FoodItemImage, foodItem.FoodItemName, foodItem.Price, resId,foodItem.Type), conn);
+            byte[] imageData = new byte[foodItem.ImageFile.Length];
+            foodItem.ImageFile.OpenReadStream().ReadAsync(imageData, 0, (int)foodItem.ImageFile.Length);
+            string image = "data:image/jpeg;base64," + System.Convert.ToBase64String(imageData);
+            SqlCommand sqlCommand1 = new SqlCommand(String.Format("insert into Food values('{0}','{1}','{2}','{3}','{4}')", image, foodItem.FoodItemName, foodItem.Price, resId,foodItem.Type), conn);
             conn.Open();
             sqlCommand1.ExecuteNonQuery();
             conn.Close();
@@ -596,7 +603,16 @@ namespace RestaurantSideApplication.Controllers
             SqlDataReader sr1 = sqlCommand1.ExecuteReader();
             while (sr1.Read())
             {
-                foodItemsList.Add(new FoodItem((int)sr1["Id"], sr1["Food_Item"].ToString(), sr1["Food_Image"].ToString(), (int)sr1["Price"], sr1["FoodType"].ToString()));
+                string imageurl = sr1["Food_Image"].ToString();
+                string imageString = imageurl.Substring(23);
+                byte[] imageData = System.Convert.FromBase64String(imageString);
+                IFormFile imageFile;
+                using (var ms = new System.IO.MemoryStream(imageData))
+                {
+                    imageFile = new FormFile(ms, 0, imageData.Length, "imageFile", "image.jpeg");
+                    // use the imageFile as needed
+                }
+                foodItemsList.Add(new FoodItem((int)sr1["Id"], sr1["Food_Item"].ToString(), imageFile, (int)sr1["Price"], sr1["FoodType"].ToString()));
             }
 
             conn1.Close();
@@ -612,10 +628,13 @@ namespace RestaurantSideApplication.Controllers
                 return RedirectToAction("Login");
             }
             var fi = foodItemsList.Find(e => e.FoodItemId == id);
+            byte[] imageData = new byte[f.ImageFile.Length];
+            f.ImageFile.OpenReadStream().ReadAsync(imageData, 0, (int)f.ImageFile.Length);
+            string image = "data:image/jpeg;base64," + System.Convert.ToBase64String(imageData);
             if (fi != null)
             {
                 SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
-                SqlCommand cmd = new SqlCommand(String.Format("update Food set Food_Image='{0}',Food_Item='{1}',Price='{2}',FoodType='{3}' where Id = '{4}'", f.FoodItemImage, f.FoodItemName, f.Price, f.Type, id), conn);
+                SqlCommand cmd = new SqlCommand(String.Format("update Food set Food_Image='{0}',Food_Item='{1}',Price='{2}',FoodType='{3}' where Id = '{4}'", image, f.FoodItemName, f.Price, f.Type, id), conn);
                 conn.Open();
                 cmd.ExecuteNonQuery();
                 conn.Close();
@@ -776,7 +795,7 @@ namespace RestaurantSideApplication.Controllers
             if (ModelState.IsValid)
             {
                 //Save image to wwwroot/image
-                string wwwRootPath = _hostEnvironment.WebRootPath;
+               /* string wwwRootPath = _hostEnvironment.WebRootPath;
                 string wwwRootPath2 = "";
                 string fileName = Path.GetFileNameWithoutExtension(signup.ImageFile.FileName);
                 string extension = Path.GetExtension(signup.ImageFile.FileName);
@@ -785,10 +804,16 @@ namespace RestaurantSideApplication.Controllers
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                    signup.ImageFile.CopyTo(fileStream);
-                }
+                }*/
                 //Insert record
                 /*  _context.Add(imageModel);
                   await _context.SaveChangesAsync();*/
+                byte[] imageData = new byte[signup.ImageFile.Length];
+                signup.ImageFile.OpenReadStream().ReadAsync(imageData, 0, (int)signup.ImageFile.Length);
+                string image = "data:image/jpeg;base64," + System.Convert.ToBase64String(imageData);
+                
+                // await signup.ImageFile.OpenReadStream().ReadAsync(imageData, 0, (int)signup.ImageFile.Length);
+                
                 SqlConnection conn = new SqlConnection("Data Source = fooddeliverydatabase.ctzhubalbjxo.ap-south-1.rds.amazonaws.com,1433 ; Initial Catalog = FoodDeliveryApplication ; Integrated Security=False; User ID=admin; Password=surya1997;");
 
                 SqlCommand cmd = new SqlCommand(String.Format("insert into RestaurantLoginDetails values('{0}','{1}','{2}','{3}')", signup.RestaurantName, signup.UserName, signup.Password, signup.Email), conn);
@@ -797,13 +822,14 @@ namespace RestaurantSideApplication.Controllers
                 conn.Close();
                 _logger.LogInformation(String.Format("A new Account Created with UserName {0} and RestaurantName {1}", signup.UserName, signup.RestaurantName));
 
-                SqlCommand cmd1 = new SqlCommand(String.Format("insert into Restaurants values('{0}','{1}','{2}')", signup.RestaurantName, signup.RestaurantImage, signup.Cuisine), conn);
+                SqlCommand cmd1 = new SqlCommand(String.Format("insert into Restaurants values('{0}','{1}','{2}')", signup.RestaurantName, image, signup.Cuisine), conn);
+                
                 conn.Open();
                 cmd1.ExecuteNonQuery();
                 conn.Close();
                 return RedirectToAction("Login");
             }
-            return View("Login");
+            return View("CreateAccount");
         }
 
 

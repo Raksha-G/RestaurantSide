@@ -16,11 +16,11 @@ namespace RestaurantSideApplication.Models
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-
-        public string RestaurantImage { get; set; }
+   
+       // public string RestaurantImage { get; set; }
 
         public string Cuisine { get; set; }
-
+        
         [NotMapped]
         [DisplayName("Upload File")]
         public IFormFile ImageFile { get; set; }
@@ -29,13 +29,13 @@ namespace RestaurantSideApplication.Models
         {
 
         }
-        public SignUp(string restaurantName, string userName,string email, string password, string restaurantImage, string cuisine, IFormFile imageFile)
+        public SignUp(string restaurantName, string userName,string email, string password, string cuisine, IFormFile imageFile)
         {
             RestaurantName = restaurantName;
             UserName = userName;
             Email = email;
             Password = password;
-            RestaurantImage = restaurantImage;
+            //RestaurantImage = restaurantImage;
             Cuisine = cuisine;
             ImageFile = imageFile;
         }

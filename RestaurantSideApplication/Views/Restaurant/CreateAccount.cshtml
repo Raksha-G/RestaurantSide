@@ -44,19 +44,20 @@
                 <input required asp-for="Email" placeholder="Email*" class="form-control" style="width:100%"/>
             </div>
 
-             <div class="mb-3">
-                @*<label asp-for="Password"></label>*@
-                <input required asp-for="RestaurantImage" placeholder="Restaurant Image Url*" class="form-control" style="width:100%"/>
-            </div>
+             
 
             <div class="mb-3">
                 @*<label asp-for="Password"></label>*@
                 <input required asp-for="Cuisine" placeholder="Cuisine*" class="form-control" style="width:100%"/>
             </div>
+            @*<div class="mb-3">
+                
+                <input asp-for="RestaurantImage" placeholder="Restaurant Image Url" class="form-control" style="width:100%"/>
+            </div>*@
 
              <div class="mb-3">
-                <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" accept="image/*" />
+                <label class="text-secondary ml-2" asp-for="ImageFile" class="control-label">Upload Image*</label>
+                <input required class="text-secondary" type="file" asp-for="ImageFile" accept="image/*" />
             </div>
 
              <div class="mb-3">

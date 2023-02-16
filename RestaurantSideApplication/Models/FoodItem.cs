@@ -18,35 +18,59 @@ namespace RestaurantSideApplication.Models
 
         public  string Type { get; set; }
 
+        [NotMapped]
+        [DisplayName("Upload File")]
+        public IFormFile ImageFile { get; set; }
+
         /*public int RestaurantId { get; set; }
 
         [NotMapped]
         [DisplayName("Upload File")]
         public IFormFile ImageFile { get; set; }*/
 
-        public FoodItem(int foodItemId, string foodItemName, string foodItemImage, int price)
+        public FoodItem(int foodItemId, string foodItemName, IFormFile imagefile, int price)
         {
             FoodItemId = foodItemId;
             FoodItemName = foodItemName;
-            FoodItemImage = foodItemImage;
+            ImageFile = imagefile;
             Price = price;
 
 
         }
-        public FoodItem(string foodItemName, string foodItemImage, int price)
+        public FoodItem(int foodItemId, string foodItemName, string foodimage, int price)
+        {
+            FoodItemId = foodItemId;
+            FoodItemName = foodItemName;
+            FoodItemImage= foodimage;
+            Price = price;
+
+
+        }
+        public FoodItem(string foodItemName, IFormFile imagefile, int price)
         {
        
             FoodItemName = foodItemName;
-            FoodItemImage = foodItemImage;
+            ImageFile=imagefile;
             Price = price;
           
         }
 
-        public FoodItem(int foodItemId, string foodItemName, string foodItemImage, int price,string type)
+
+        public FoodItem(int foodItemId, string foodItemName, IFormFile imagefile, int price,string type)
         {
             FoodItemId = foodItemId;
             FoodItemName = foodItemName;
-            FoodItemImage = foodItemImage;
+            ImageFile = imagefile;
+            Price = price;
+            Type = type;
+
+
+        }
+        public FoodItem(int foodItemId, string foodItemName, string image, int price, string type)
+        {
+            FoodItemId = foodItemId;
+            FoodItemName = foodItemName;
+            FoodItemImage = image;
             Price = price;
             Type = type;
 
